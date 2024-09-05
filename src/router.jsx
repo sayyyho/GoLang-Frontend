@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import React from "react";
 import App from "./App";
+import { Loading } from "./pages/Loading/Loading.jsx";
 
 const router = createBrowserRouter([
   {
@@ -8,8 +9,8 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        // path: "/login",
-        // element: <Login />,
+        path: "",
+        element: <Loading />,
       },
     ],
     // errorElement: <NotFound />,
