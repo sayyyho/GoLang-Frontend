@@ -12,7 +12,7 @@ export const postPdf = async (file) => {
     });
     console.log(res);
     if (res) {
-      useFilenameStore.getState().setFilename(res.data.data);
+      localStorage.setItem("filename", res.data.data);
     } else {
       console.log("가져오 실패");
     }
