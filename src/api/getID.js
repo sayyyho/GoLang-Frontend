@@ -3,6 +3,7 @@ import { instance } from "./instance";
 export const getUserID = async () => {
   try {
     const res = await instance.post(`/api/login`, {});
+    console.log(res);
     if (res.data && res.data.username) {
       localStorage.setItem("username", res.data.username);
     }
