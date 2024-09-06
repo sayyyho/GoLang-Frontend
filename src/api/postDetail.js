@@ -1,19 +1,15 @@
 import { instance } from "./instance";
+import useRoomStore from "@/store/room";
+import useFilenameStore from "@/store/filename";
 
-// chatroomid -> zustand
-// chatroomDetails -> zustand
-
-export const postDetail = async ({
-  chatroomUUID,
-  chatroomDetails,
-  filename,
-  relationship,
-}) => {
+export const postDetail = async ({ relationship }) => {
   try {
+    const { chatroomUUID, chatroomDetails } = useRoomStore.getState(); // 상태에서 값 불러오기
+    const { filename } = useFilenameStore.getState(); // 상태에서 파일명 불러오기
     const res = await instance.post(`/api/chatrooms/details`, {
-      chatroomUUID,
-      chatroomDetails,
-      filename,
+      chatroomUUID: chatroomUUID,
+      chatroomDetails: chatroomDetails,
+      filename: filename,
       relationship,
     });
     return res;

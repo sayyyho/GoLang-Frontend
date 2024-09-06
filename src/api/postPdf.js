@@ -1,4 +1,5 @@
 import { instance } from "./instance";
+import useFilenameStore from "@/store/filename";
 
 export const postPdf = async (file) => {
   try {
@@ -9,7 +10,12 @@ export const postPdf = async (file) => {
         "Content-Type": "multipart/form-data",
       },
     });
-    return res;
+    console.log(res);
+    if (res.success) {
+      useFilenameStore.getState().setFilename(res.data);
+    } else {
+      console.log("가져오기 실패");
+    }
   } catch (err) {
     console.log(err);
   }
