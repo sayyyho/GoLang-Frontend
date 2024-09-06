@@ -13,8 +13,7 @@ export const ChatInfo = () => {
 
   const handleSubmit = async () => {
     if (file) {
-      const res = await postPdf(file);
-      console.log(res);
+      await postPdf(file);
     } else {
       alert("Please upload a PDF file.");
     }
