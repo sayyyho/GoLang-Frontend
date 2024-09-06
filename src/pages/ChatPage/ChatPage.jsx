@@ -39,11 +39,11 @@ export const ChatPage = () => {
       }}
     >
       <Header color="black">
-        <p>고랭 : 2인 채팅</p>
+        <p>2인 채팅</p>
         <EndButton>끝내기</EndButton>
       </Header>
       <S.ChattingZone>
-        <S.SendZone>{DUMMY_TEXT}</S.SendZone>
+        {/* <S.SendZone>{DUMMY_TEXT}</S.SendZone>
         <S.ResBox>
           <S.ResZone>{DUMMY_TEXT}</S.ResZone>
           <S.ResImage
@@ -53,7 +53,7 @@ export const ChatPage = () => {
               backgroundPosition: "center",
             }}
           ></S.ResImage>
-        </S.ResBox>
+        </S.ResBox> */}
       </S.ChattingZone>
       <S.RecommendTextContainer ref={recommendZone}>
         <S.RecommendText>추천1</S.RecommendText>

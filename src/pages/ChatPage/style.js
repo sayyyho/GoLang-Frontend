@@ -5,14 +5,14 @@ export const ChatLayout = styled.div`
   min-height: 100vh;
   width: 100%;
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 `;
 
 export const ChattingZone = styled.div`
   width: 100%;
-  min-height: 90%;
+  min-height: 90vh;
   display: grid;
   padding: 1.5rem 1rem;
   grid-template-columns: repeat(6, 1fr);
