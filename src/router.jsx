@@ -5,6 +5,7 @@ import { Loading } from "./pages/Loading/Loading.jsx";
 import { HomePage } from "./pages/Home/Home.main.jsx";
 import { ChatPage } from "./pages/ChatPage/ChatPage";
 import { ChatInfo } from "./pages/ChatSetting/ChatInfo";
+import { MyPage } from "./pages/MyPage/MyPage.jsx";
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,9 @@ const router = createBrowserRouter([
       //   path: "chatting/peer/relation",
       //   element: <ChatRelation />,
       // },
+        path: "mypage",
+        element: <MyPage />,
+      },
     ],
     // errorElement: <NotFound />,
   },
