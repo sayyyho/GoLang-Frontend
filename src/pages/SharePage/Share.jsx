@@ -10,7 +10,9 @@ export const Share = () => {
   const handleChatting = () => {
     navigate(`/chatting/peer/${localStorage.getItem("chatroomUUID")}`);
   };
-  const realUrl = "https://golang-ktb.site";
+  const realUrl = `https://golang-ktb.site/chatting/peer/${localStorage.getItem(
+    "chatroomUUID"
+  )}`;
 
   // 재랜더링시에 실행되게 해준다.
   useEffect(() => {
@@ -80,9 +82,7 @@ export const Share = () => {
               gap: "10px",
               cursor: "pointer",
             }}
-            onClick={() => {
-              shareKakao();
-            }}
+            onClick={shareKakao}
           >
             <p
               style={{
