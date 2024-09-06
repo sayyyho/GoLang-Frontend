@@ -2,7 +2,7 @@ import * as S from "./Loading";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import LoadingImage from "../../assets/loadingPage.png";
-import { getUserID } from "@/api/getID";
+import { getUserID } from "../../api/getID";
 
 export const Loading = () => {
   const navigation = useNavigate();
