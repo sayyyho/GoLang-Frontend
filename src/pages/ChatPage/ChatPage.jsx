@@ -41,7 +41,7 @@ export const ChatPage = () => {
     } else {
       // WebSocket 연결 설정
       const ws = new WebSocket(
-        `${import.meta.env.VITE_BASE_API}/${params.room}`
+        `${import.meta.env.VITE_BASE_API}/chat/ws`
       );
 
       ws.onopen = () => {
