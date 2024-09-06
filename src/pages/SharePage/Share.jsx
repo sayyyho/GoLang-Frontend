@@ -2,9 +2,14 @@ import * as S from "./style";
 import { useEffect } from "react";
 import { Header } from "@/components/Header/Header";
 import LAYOUT from "@/assets/share.png";
+import { useNavigate } from "react-router-dom";
 const { Kakao } = window;
 
 export const Share = () => {
+  const navigate = useNavigate();
+  const handleChatting = () => {
+    navigate(`/chatting/peer/${localStorage.getItem("chatroomUUID")}`);
+  };
   const realUrl = "https://golang-ktb.site";
 
   // 재랜더링시에 실행되게 해준다.
@@ -94,6 +99,9 @@ export const Share = () => {
 
           <p
             style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               color: "#647DC3",
               fontFamily: "Nunito",
               fontSize: "20px",
@@ -105,7 +113,7 @@ export const Share = () => {
           </p>
         </div>
       </S.Box>
-      <S.CustomBtn>
+      <S.CustomBtn onClick={handleChatting}>
         <S.Text color="white">채팅방 입장하기</S.Text>
       </S.CustomBtn>
     </S.Layout>
