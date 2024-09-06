@@ -14,7 +14,11 @@ const router = createBrowserRouter([
         element: <Loading />,
       },
       {
-        path: "chatting",
+        path: "main",
+        element: <ChatPage />,
+      },
+      {
+        path: "chatting/peer/:room",
         element: <ChatPage />,
       },
     ],
