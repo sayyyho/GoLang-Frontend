@@ -1,46 +1,81 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as style from "./styled/MyPage.style.js";
-import { Header } from "../../components/Header/Header.jsx"
+import { Header } from "../../components/Header/Header.jsx";
 import mypageimg from "@/assets/img/myPage.png";
-import { MyDataComponent }  from "../MyPage/MyDataComponent.jsx";
+import { MyDataComponent } from "../MyPage/MyDataComponent.jsx";
+import { useNavigate } from "react-router-dom";
+import { getChatResult } from "../../api/getChatResult.js";
 
 export const MyPage = () => {
+    const navigate = useNavigate();
+    const [chatResults, setChatResults] = useState([]);
 
-    return(
+    // 목업 데이터 생성
+    const mockData = [
+        {
+            person: 'A',
+            date: '2024.08.09',
+            pieData: { 'A': 10, 'B': 9, 'C': 8, 'D': 7 },
+            score: { positive: 50, neutral: 20, negative: 30 },
+            result: { message: "이번 채팅은 누가 고집이 더 셌어요 그만 좀 부리세요." }
+        },
+        {
+            person: 'B',
+            date: '2024.08.20',
+            pieData: { 'A': 7, 'B': 10, 'C': 6, 'D': 9 },
+            score: { positive: 60, neutral: 25, negative: 15 },
+            result: { message: "긍정적인 대화가 많았습니다!" }
+        },
+        {
+            person: 'C',
+            date: '2024.08.23',
+            pieData: { 'A': 9, 'B': 8, 'C': 7, 'D': 6 },
+            score: { positive: 40, neutral: 30, negative: 30 },
+            result: { message: "대화가 약간 부정적이었습니다." }
+        }
+    ];
 
+    // 클릭 시 해당 이름의 데이터를 EvaluationPage로 전달
+    const handleClick = (person) => {
+        const selectedData = mockData.find(data => data.person === person);
+        if (selectedData) {
+            navigate('/evaluation', { state: selectedData });
+        }
+    };
+
+    return (
         <style.Frame>
             <style.Wrapper>
-                <Header
-                    color={"#1B536B"} isBack={true}>
+                <Header color={"#1B536B"} isBack={true}>
                     <h2>{"마이페이지"}</h2>
                     <button>
-                        <img src={mypageimg}/>
+                        <img src={mypageimg} alt="My Page" />
                     </button>
                 </Header>
+
                 <style.FirstWrapper>
                     <style.TitleWrapper>
-                        <style.Title>
-                            일주일간 대화 분석 내역
-                        </style.Title>
+                        <style.Title>일주일간 대화 분석 내역</style.Title>
                     </style.TitleWrapper>
                     <style.EvaluationWrapper>
-
+                        {/* MyDataComponent로 데이터 전달 */}
                     </style.EvaluationWrapper>
                 </style.FirstWrapper>
 
                 <style.SecondWrapper>
-                    <MyDataComponent />
-                    <MyDataComponent />
-                    <MyDataComponent />
-                    <MyDataComponent />
-                    <MyDataComponent />
-                    <MyDataComponent />
-                    <MyDataComponent />
-                    <MyDataComponent />
-                    <MyDataComponent />
-
+                    {mockData.map((data, index) => (
+                        <MyDataComponent
+                            key={index}
+                            person={data.person}
+                            date={data.date}
+                            pieData={data.pieData}
+                            score={data.score}
+                            result={data.result.message}
+                            onClick={() => handleClick(data.person)} // 클릭 시 데이터 전달
+                        />
+                    ))}
                 </style.SecondWrapper>
             </style.Wrapper>
         </style.Frame>
-    )
+    );
 };

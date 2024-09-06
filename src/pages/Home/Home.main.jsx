@@ -11,7 +11,11 @@ import Banner from "../../components/Banner/Banner.jsx";
 import { postRoom } from "@/api/postRoom.js";
 
 export const HomePage = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const handleNavigate = (path) => {
+        navigate(path);
+    };
+
 
   const handleMakingRoom = async () => {
     await postRoom({
@@ -19,10 +23,6 @@ export const HomePage = () => {
       chatroomType: "CHAT_PERSON",
     });
     navigate("/chatting/info");
-  };
-
-  const handleNavigate = (path) => {
-    navigate(path);
   };
 
 
@@ -43,10 +43,7 @@ export const HomePage = () => {
           <Banner />
 
           <style.ButtonTotalWrapper>
-            <style.Button
-              // onClick={() => handleNavigate("/evaluation")}
-              onClick={handleMakingRoom}
-            >
+            <style.Button onClick={handleMakingRoom}>
               <style.ButtonCharacter src={buttonimg1} />
               <style.ButtonTextWrapper>
                 <style.ButtonText>갈등 해결 채팅하기</style.ButtonText>
