@@ -37,6 +37,7 @@ export const ChatRelation = () => {
         console.log(
           `https://golang-ktb.site/${localStorage.getItem("chatroomUUID")}`
         );
+        navigate("/share");
       }
     } else {
       alert("모든 필드를 채워주세요.");
