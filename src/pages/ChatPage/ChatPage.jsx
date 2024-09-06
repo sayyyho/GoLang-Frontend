@@ -4,13 +4,16 @@ import * as S from "./style";
 import BOT_IMG from "@/assets/bot.png";
 import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
 import { DUMMY_TEXT } from "@/constant/dummy";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import useSpeechToText from "@/hooks/useSpeechToText";
 
 export const ChatPage = () => {
   const customInput = useRef();
   const recommendZone = useRef();
+  const { transcript, listening, toggleListening } = useSpeechToText();
   //   const { room } = useParams();
+
   const handleResizeHeight = () => {
     if (customInput.current && recommendZone.current) {
       customInput.current.style.height = "auto";
@@ -21,6 +24,11 @@ export const ChatPage = () => {
       recommendZone.current.style.bottom = `${bottomOffset}px`;
     }
   };
+
+  useEffect(() => {
+    customInput.current.value = transcript;
+    handleResizeHeight();
+  }, [transcript]);
 
   return (
     <S.ChatLayout
@@ -49,17 +57,17 @@ export const ChatPage = () => {
       </S.ChattingZone>
       <S.RecommendTextContainer ref={recommendZone}>
         <S.RecommendText>추천1</S.RecommendText>
-
         <S.RecommendText>추천2</S.RecommendText>
       </S.RecommendTextContainer>
       <S.InputContainer>
         <S.StyledInput
           rows={1}
           ref={customInput}
+          onChange={() => {}}
           onInput={handleResizeHeight}
           maxLength={500}
         />
-        <S.MicrophoneIcon />
+        <S.MicrophoneIcon onClick={toggleListening} />
         <S.SendIcon />
       </S.InputContainer>
     </S.ChatLayout>

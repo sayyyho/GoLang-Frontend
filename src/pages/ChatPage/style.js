@@ -25,7 +25,7 @@ export const SendZone = styled.div`
   align-items: center;
   border-radius: 25px 0px 25px 25px;
   background: #5879d4;
-  grid-column: 7/3;
+  grid-column: 7/2;
   padding: 1rem;
   font-family: Nunito;
 `;
