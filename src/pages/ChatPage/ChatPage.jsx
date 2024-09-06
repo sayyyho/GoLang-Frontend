@@ -6,7 +6,7 @@ import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
 import { useRef, useEffect, useState } from "react";
 import useSpeechToText from "@/hooks/useSpeechToText";
 import io from "socket.io-client";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const ChatPage = () => {
   const customInput = useRef();
@@ -15,6 +15,7 @@ export const ChatPage = () => {
   const [messages, setMessages] = useState([]); // 메시지 배열
   const socketRef = useRef();
   const params = useParams();
+  const navigate = useNavigate();
 
   const handleResizeHeight = () => {
     if (customInput.current && recommendZone.current) {
@@ -33,35 +34,40 @@ export const ChatPage = () => {
   }, [transcript]);
 
   useEffect(() => {
-    // 소켓 연결 설정
-    socketRef.current = io(`https://api.golang-ktb.site/${params.room}`);
+    const username = localStorage.getItem("username");
+    localStorage.setItem("chatroomUUID", params.room);
+    if (!username) {
+      // 로컬 스토리지에 username이 없으면 로딩 페이지로 이동
+      navigate("/");
+      window.addEventListener("storage", (event) => {
+        if (event.key === "username" && event.newValue) {
+          navigate("/chatting/info/another");
+        }
+      });
+    } else {
+      // username이 이미 있는 경우 소켓 연결 설정
+      socketRef.current = io(`${import.meta.env.VITE_BASE_API}/${params.room}`);
+      const roomName = "y";
+      socketRef.current.emit("join", roomName);
 
-    // 특정 방에 조인
-    const roomName = "y";
-    socketRef.current.emit("join", roomName);
+      socketRef.current.on("message", (message) => {
+        setMessages((prevMessages) => [...prevMessages, message]);
+      });
 
-    // 메시지 수신 시 처리
-    socketRef.current.on("message", (message) => {
-      setMessages((prevMessages) => [...prevMessages, message]);
-    });
-
-    // 컴포넌트 언마운트 시 소켓 연결 해제
-    return () => {
-      socketRef.current.disconnect();
-    };
-  }, []);
+      return () => {
+        socketRef.current.disconnect();
+      };
+    }
+  }, [navigate, params.room]);
 
   const handleSendMessage = () => {
     const message = customInput.current.value;
     if (message.trim()) {
-      // 내가 보낸 메시지 추가
       const newMessage = { text: message, isMine: true };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-      // 서버로 메시지 전송
       socketRef.current.emit("send-message", newMessage);
 
-      // 입력창 비우기
       customInput.current.value = "";
       handleResizeHeight();
     }

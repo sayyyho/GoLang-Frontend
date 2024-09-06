@@ -16,8 +16,6 @@ export const ChatInfo = () => {
     if (file) {
       await postPdf(file);
       navigate("relation");
-    } else {
-      alert("Please upload a PDF file.");
     }
   };
 
