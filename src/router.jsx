@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import React from "react";
 import App from "./App";
 import { Loading } from "./pages/Loading/Loading.jsx";
-import HomePage from "./pages/Home/Home.main.jsx";
+import {HomePage} from "./pages/Home/Home.main.jsx";
 import { ChatPage } from "./pages/ChatPage/ChatPage";
 
 const router = createBrowserRouter([
