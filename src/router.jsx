@@ -3,6 +3,8 @@ import React from "react";
 import App from "./App";
 import { Loading } from "./pages/Loading/Loading.jsx";
 import HomePage from "./pages/Home/Home.main.jsx";
+import { ChatPage } from "./pages/ChatPage/ChatPage";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -16,7 +18,10 @@ const router = createBrowserRouter([
         path: "loading",
         element: <Loading />,
       },
-
+      {
+        path: "chatting",
+        element: <ChatPage />,
+      },
     ],
     // errorElement: <NotFound />,
   },
