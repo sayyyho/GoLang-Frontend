@@ -5,15 +5,17 @@ import CHAT_LAYOUT from "@/assets/ChatLayout.png";
 import REL_GOLANG from "@/assets/relationGolang.svg";
 import { RELATION_TEXT } from "@/constant/chatSetting";
 import { postPdf } from "@/api/postPdf";
+import { useNavigate } from "react-router-dom";
 
 export const ChatInfo = () => {
   const fileInputRef = useRef();
   const [isUpload, setIsUpload] = useState(false);
   const [file, setFile] = useState(null);
-
+  const navigate = useNavigate();
   const handleSubmit = async () => {
     if (file) {
       await postPdf(file);
+      navigate("relation");
     } else {
       alert("Please upload a PDF file.");
     }
