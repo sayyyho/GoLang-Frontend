@@ -94,11 +94,64 @@ margin-left: 20px;
 
 export const SecondWrapper = styled.div`
  width: 90%;
-    height: 300px;
+    height: 200px;
     margin-top: 20px;
-    border-radius: 30px;
-    background-color: gray;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    
 `;
+export const TitleWrapper = styled.div`
+display: flex;
+    flex-direction: column;
+align-items: center;
+justify-content: center;
+`;
+
+//////////////////Bar///////////////////////
+export const SecondTitle = styled.h2`
+    
+`
+export const BarContainer = styled.div`
+width: 100%;
+    height: 20%;
+    margin-top: 20px;
+    background-color: white;
+`;
+
+export const Bar = styled.div`
+    height: 100%;
+    width: 100%;
+    border-radius: 50px;
+    display: flex;
+
+
+`;
+export const BarSection = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 90%;
+    color: white;
+    font-size: 12px;
+    
+
+`;
+
+export const BarText = styled.h4`
+margin-left: 10px;
+    color: #7f3c91;
+    font-size: 13px;
+    font-weight: bold;
+    
+`
+
+
+
+/////////////////////////////////////////////////////////////
 
 export const ThirdWrapper = styled.div`
 width: 90%;
