@@ -6,21 +6,4 @@ export const instance = axios.create({
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true,
 });
-
-instance.interceptors.request.use(
-  (config) => config,
-  (error) => Promise.reject(error)
-);
-
-instance.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.code === "ECONNABORTED") {
-      console.log("Request timeout");
-      window.location.href = "/error";
-    }
-    return Promise.reject(error);
-  }
-);
