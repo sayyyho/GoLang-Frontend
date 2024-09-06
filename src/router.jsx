@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import React from "react";
 import App from "./App";
 import { Loading } from "./pages/Loading/Loading.jsx";
@@ -12,6 +12,16 @@ import { OnboardingPage3 } from "./pages/OnboardingPage/OnboardingPage.3.jsx";
 import { OnboardingPage4 } from "./pages/OnboardingPage/OnboardingPage.4.jsx";
 import { ChatInfo } from "./pages/ChatSetting/ChatInfo";
 import { ChatRelation } from "./pages/ChatSetting/ChatRelation";
+import { Share } from "./pages/SharePage/Share";
+import { ChatAnother } from "./pages/ChatSetting/ChatAnother";
+
+// ProtectedRoute 컴포넌트 정의
+const ProtectedRoute = ({ element }) => {
+  const username = localStorage.getItem("username");
+
+  // username이 없으면 "/onboarding/1" 경로로 리다이렉트
+  return username ? element : <Navigate to="/" replace />;
+};
 
 const router = createBrowserRouter([
   {
@@ -20,27 +30,27 @@ const router = createBrowserRouter([
     children: [
       {
         path: "home",
-        element: <HomePage />,
+        element: <ProtectedRoute element={<HomePage />} />,
       },
       {
         path: "",
         element: <Loading />,
       },
       {
-        path: "onboarding1",
-        element: <OnboardingPage1 />,
+        path: "onboarding/1",
+        element: <OnboardingPage1 />, // 온보딩 페이지는 보호되지 않음
       },
       {
-        path: "onboarding2",
-        element: <OnboardingPage2 />,
+        path: "onboarding/2",
+        element: <OnboardingPage2 />, // 온보딩 페이지는 보호되지 않음
       },
       {
-        path: "onboarding3",
-        element: <OnboardingPage3 />,
+        path: "onboarding/3",
+        element: <OnboardingPage3 />, // 온보딩 페이지는 보호되지 않음
       },
       {
-        path: "onboarding4",
-        element: <OnboardingPage4 />,
+        path: "onboarding/4",
+        element: <OnboardingPage4 />, // 온보딩 페이지는 보호되지 않음
       },
       {
         path: "chatting/peer/:room",
@@ -48,22 +58,29 @@ const router = createBrowserRouter([
       },
       {
         path: "chatting/info",
-        element: <ChatInfo />,
+        element: <ProtectedRoute element={<ChatInfo />} />,
       },
       {
         path: "chatting/info/relation",
-        element: <ChatRelation />,
+        element: <ProtectedRoute element={<ChatRelation />} />,
+      },
+      {
+        path: "chatting/info/another",
+        element: <ProtectedRoute element={<ChatAnother />} />,
       },
       {
         path: "mypage",
-        element: <MyPage />,
+        element: <ProtectedRoute element={<MyPage />} />,
       },
       {
         path: "evaluation",
-        element: <EvaluationPage />,
+        element: <ProtectedRoute element={<EvaluationPage />} />,
+      },
+      {
+        path: "share",
+        element: <ProtectedRoute element={<Share />} />,
       },
     ],
-    // errorElement: <NotFound />,
   },
 ]);
 

@@ -1,11 +1,10 @@
 import { instance } from "./instance";
 
-export const postDetail = async ({ relationship, chatroomDetails }) => {
+export const postDetailAnother = async ({ relationship, chatroomDetails }) => {
   try {
-    const res = await instance.post(`/api/chatrooms/details`, {
+    const res = await instance.post(`/api/chatrooms/details/join`, {
       chatroomUUID: localStorage.getItem("chatroomUUID"),
       chatroomDetails,
-      filename: localStorage.getItem("filename"),
       relationship,
     });
     return res;

@@ -24,6 +24,8 @@
     "recoil": "^0.7.7",
     "regenerator-runtime": "^0.14.1",
     "slick-carousel": "^1.8.1",
+    "socket.io-client": "^4.7.5",
+    "sockjs-client": "^1.6.1",
     "styled-components": "^6.1.13",
     "swiper": "^11.1.12",
     "zustand": "^4.5.5"

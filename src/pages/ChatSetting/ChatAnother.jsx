@@ -4,13 +4,14 @@ import REL_GOLANG from "@/assets/relationGolang.svg";
 import { useState } from "react";
 import { CHOOSE_TEXT } from "@/constant/chatSetting";
 import { Header } from "@/components/Header/Header";
-import { postDetail } from "@/api/postDetail";
+import { postDetailAnother } from "@/api/postDetailAnother";
+import { chatJoin } from "@/api/chatJoin";
 import { useNavigate } from "react-router-dom";
 
 const relation = ["커플", "친구", "가족", "기타"];
 const sendRelation = ["COUPLE", "FRIEND", "FAMILY", "ETC"];
 
-export const ChatRelation = () => {
+export const ChatAnother = () => {
   const navigate = useNavigate();
   const [selectedBox, setSelectedBox] = useState([false, false, false, false]);
   const [selectedNum, setSelectedNum] = useState(null);
@@ -29,15 +30,20 @@ export const ChatRelation = () => {
 
   const handleSubmit = async () => {
     if (selectedNum !== null && chatDetails.trim() !== "") {
-      const res = await postDetail({
+      const res = await postDetailAnother({
         chatroomDetails: chatDetails, // 입력된 값 사용
         relationship: sendRelation[selectedNum],
       });
       if (res.data.success) {
         console.log(
-          `https://golang-ktb.site/${localStorage.getItem("chatroomUUID")}`
+          `https://golang-ktb.site/chatting/peer/${localStorage.getItem(
+            "chatroomUUID"
+          )}`
         );
-        navigate("/share");
+        const res = await chatJoin();
+        if (res.data.success) {
+          navigate(`/chatting/peer/${localStorage.getItem("chatroomUUID")}`);
+        }
       }
     } else {
       alert("모든 필드를 채워주세요.");

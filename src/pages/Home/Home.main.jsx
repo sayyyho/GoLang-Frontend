@@ -16,53 +16,55 @@ export const HomePage = () => {
         navigate(path);
     };
 
-    const handleMakingRoom = async () => {
-        await postRoom({
-            chatroomName: null,
-            chatroomType: "CHAT_PERSON",
-        });
-        navigate("/chatting/info");
-    };
+
+  const handleMakingRoom = async () => {
+    await postRoom({
+      chatroomName: null,
+      chatroomType: "CHAT_PERSON",
+    });
+    navigate("/chatting/info");
+  };
 
 
 
-    return (
-        <div>
-            <style.Frame>
-                <style.Wrapper>
-                    <Header color={"#1B536B"} >
-                        <h1>고랭</h1>
-                        <button
-                            onClick={() => {
-                                navigate("/mypage");
-                            }}
-                        >
-                            <img src={mypageimg} alt="My Page" />
-                        </button>
-                    </Header>
-                    <Banner />
+  return (
+    <div>
+      <style.Frame>
+        <style.Wrapper>
+          <Header color={"#1B536B"}>
+            <h1>고랭</h1>
+            <button
+              onClick={() => {
+                navigate("/mypage");
+              }}
+            >
+              <img src={mypageimg} alt="My Page" />
+            </button>
+          </Header>
+          <Banner />
 
-                    <style.ButtonTotalWrapper>
-                        <style.Button
-                            onClick={() => handleNavigate("/evaluation")}
-                        >
-                            <style.ButtonCharacter src={buttonimg1} />
-                            <style.ButtonTextWrapper>
-                                <style.ButtonText>갈등 해결 채팅하기</style.ButtonText>
-                                <style.ButtonImg src={sendimg} />
-                            </style.ButtonTextWrapper>
-                        </style.Button>
+          <style.ButtonTotalWrapper>
+            <style.Button
+              // onClick={() => handleNavigate("/evaluation")}
+              onClick={handleMakingRoom}
+            >
+              <style.ButtonCharacter src={buttonimg1} />
+              <style.ButtonTextWrapper>
+                <style.ButtonText>갈등 해결 채팅하기</style.ButtonText>
+                <style.ButtonImg src={sendimg} />
+              </style.ButtonTextWrapper>
+            </style.Button>
 
-                        <style.Button>
-                            <style.ButtonTextWrapper2>
-                                <style.ButtonImg src={sendimg} angle={180} />
-                                <style.ButtonText>고랭과 채팅하기</style.ButtonText>
-                            </style.ButtonTextWrapper2>
-                            <style.ButtonCharacter2 src={buttonimg2} />
-                        </style.Button>
-                    </style.ButtonTotalWrapper>
-                </style.Wrapper>
-            </style.Frame>
-        </div>
-    );
+            <style.Button>
+              <style.ButtonTextWrapper2>
+                <style.ButtonImg src={sendimg} angle={180} />
+                <style.ButtonText>고랭과 채팅하기</style.ButtonText>
+              </style.ButtonTextWrapper2>
+              <style.ButtonCharacter2 src={buttonimg2} />
+            </style.Button>
+          </style.ButtonTotalWrapper>
+        </style.Wrapper>
+      </style.Frame>
+    </div>
+  );
 };
