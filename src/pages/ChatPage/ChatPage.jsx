@@ -81,39 +81,42 @@ export const ChatPage = () => {
   };
 
   return (
-    <S.ChatLayout
+    <div
       style={{
         backgroundImage: `url(${CHATTING_LAYOUT})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        width: "100%",
       }}
     >
-      <Header color="black">
-        <p>2인 채팅</p>
-        <EndButton>끝내기</EndButton>
-      </Header>
-      <S.ChattingZone>
-        {messages.map((message, index) =>
-          message.isMine ? (
-            <S.SendZone key={index}>{message.text}</S.SendZone>
-          ) : (
-            <S.ResBox key={index}>
-              <S.ResZone>{message.text}</S.ResZone>
-              <S.ResImage
-                style={{
-                  backgroundImage: `url(${BOT_IMG})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                }}
-              ></S.ResImage>
-            </S.ResBox>
-          )
-        )}
-      </S.ChattingZone>
-      <S.RecommendTextContainer ref={recommendZone}>
-        {/* <S.RecommendText>추천1</S.RecommendText>
+      <S.ChatLayout>
+        <Header color="black">
+          <p>2인 채팅</p>
+          <EndButton>끝내기</EndButton>
+        </Header>
+        <S.ChattingZone>
+          {messages.map((message, index) =>
+            message.isMine ? (
+              <S.SendZone key={index}>{message.text}</S.SendZone>
+            ) : (
+              <S.ResBox key={index}>
+                <S.ResZone>{message.text}</S.ResZone>
+                <S.ResImage
+                  style={{
+                    backgroundImage: `url(${BOT_IMG})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></S.ResImage>
+              </S.ResBox>
+            )
+          )}
+        </S.ChattingZone>
+        <S.RecommendTextContainer ref={recommendZone}>
+          {/* <S.RecommendText>추천1</S.RecommendText>
         <S.RecommendText>추천2</S.RecommendText> */}
-      </S.RecommendTextContainer>
+        </S.RecommendTextContainer>
+      </S.ChatLayout>
       <S.InputContainer>
         <S.StyledInput
           rows={1}
@@ -125,6 +128,6 @@ export const ChatPage = () => {
         <S.MicrophoneIcon onClick={toggleListening} />
         <S.SendIcon onClick={handleSendMessage} />
       </S.InputContainer>
-    </S.ChatLayout>
+    </div>
   );
 };
