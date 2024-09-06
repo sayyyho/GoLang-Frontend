@@ -25,16 +25,18 @@ export const SendZone = styled.div`
   align-items: center;
   border-radius: 25px 0px 25px 25px;
   background: #5879d4;
-  grid-column: 7/3;
+  grid-column: 7/2;
   padding: 1rem;
+  font-family: Nunito;
 `;
 
 export const ResBox = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
-  grid-column: 1/5;
+  grid-column: 1/6;
   margin-top: 40px;
+  font-family: Nunito;
 `;
 
 export const ResZone = styled.div`
@@ -75,6 +77,7 @@ export const StyledInput = styled.textarea`
   outline: none;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
   color: #a1a1a1;
+  font-family: Nunito;
 `;
 
 export const MicrophoneIcon = styled(FaMicrophone)`
@@ -132,16 +135,19 @@ export const RecommendTextContainer = styled.div`
   align-items: center;
   flex-direction: column;
   position: sticky;
-  bottom: 90px;
+  bottom: 70px;
   width: 85%;
   margin: 0 auto;
-  gap: 1rem;
+  gap: 0.5rem;
 `;
 
 export const RecommendText = styled.div`
   width: 100%;
   background-color: #b0c3f8;
   padding: 1rem;
-  border-radius: 50px;
+  border-radius: 15px;
   font-size: 16px;
+  box-shadow: 5px 4px 20px 0px rgba(0, 0, 0, 0.13);
+  color: #fff;
+  font-family: Nunito;
 `;

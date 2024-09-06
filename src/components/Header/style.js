@@ -12,4 +12,6 @@ export const Layout = styled.div`
   background-color: ${(props) => props.background || "white"};
   box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
   z-index: 2;
+  position: sticky;
+  top: 0;
 `;
