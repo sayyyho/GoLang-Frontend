@@ -5,8 +5,16 @@ import BOT_IMG from "@/assets/bot.png";
 import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
 import SEND_IMG from "@/assets/send.svg";
 import { DUMMY_TEXT } from "@/constant/dummy";
+import { useRef } from "react";
 
 export const ChatPage = () => {
+  const customInput = useRef();
+
+  const handleResizeHeight = () => {
+    customInput.current.style.height = "auto";
+    customInput.current.style.height = customInput.current.scrollHeight + "px";
+  };
+
   return (
     <S.ChatLayout
       style={{
@@ -32,18 +40,15 @@ export const ChatPage = () => {
           ></S.ResImage>
         </S.ResBox>
       </S.ChattingZone>
-      <S.BtnContainer>
-        <S.OptionButton>
-          순화하기
-          <S.SendCustomIcon />
-        </S.OptionButton>
-        <S.OptionButton>
-          정리하기
-          <S.SendCustomIcon />
-        </S.OptionButton>
-      </S.BtnContainer>
+      {/* <S.RecommendTextContainer>
+      </S.RecommendTextContainer> */}
       <S.InputContainer>
-        <S.StyledInput placeholder="메시지를 입력하세요..." />
+        <S.StyledInput
+          rows={1}
+          ref={customInput}
+          onInput={handleResizeHeight}
+          maxLength={500}
+        />
         <S.MicrophoneIcon />
         <S.SendIcon />
       </S.InputContainer>
