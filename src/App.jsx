@@ -1,3 +1,4 @@
+import "regenerator-runtime/runtime";
 import React from "react";
 import { theme } from "./style/theme.js";
 import { styled, ThemeProvider } from "styled-components";
