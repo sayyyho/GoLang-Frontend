@@ -3,9 +3,11 @@ import React from "react";
 import App from "./App";
 import { Loading } from "./pages/Loading/Loading.jsx";
 import { HomePage } from "./pages/Home/Home.main.jsx";
+import { MyPage } from "./pages/MyPage/MyPage.jsx";
+
 import { ChatPage } from "./pages/ChatPage/ChatPage";
 import { ChatInfo } from "./pages/ChatSetting/ChatInfo";
-import { MyPage } from "./pages/MyPage/MyPage.jsx";
+import { ChatRelation } from "./pages/ChatSetting/ChatRelation";
 
 const router = createBrowserRouter([
   {
@@ -29,13 +31,14 @@ const router = createBrowserRouter([
         element: <ChatPage />,
       },
       {
-        path: "chatting/info/peer",
+        path: "chatting/info",
         element: <ChatInfo />,
       },
-      // {
-      //   path: "chatting/peer/relation",
-      //   element: <ChatRelation />,
-      // },
+      {
+        path: "chatting/info/relation",
+        element: <ChatRelation />,
+      },
+      {
         path: "mypage",
         element: <MyPage />,
       },
