@@ -5,7 +5,6 @@ import BOT_IMG from "@/assets/bot.png";
 import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
 import { useRef, useEffect, useState } from "react";
 import useSpeechToText from "@/hooks/useSpeechToText";
-import io from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
 
 export const ChatPage = () => {
@@ -40,17 +39,29 @@ export const ChatPage = () => {
       localStorage.setItem("nextpage", "/chatting/info/another");
       navigate("/");
     } else {
-      // username이 이미 있는 경우 소켓 연결 설정
-      socketRef.current = io(`${import.meta.env.VITE_BASE_API}/${params.room}`);
-      const roomName = "y";
-      socketRef.current.emit("join", roomName);
+      // WebSocket 연결 설정
+      const ws = new WebSocket(
+        `${import.meta.env.VITE_BASE_API}/${params.room}`
+      );
 
-      socketRef.current.on("message", (message) => {
+      ws.onopen = () => {
+        console.log("WebSocket connected");
+        ws.send(JSON.stringify({ type: "join", room: params.room }));
+      };
+
+      ws.onmessage = (event) => {
+        const message = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, message]);
-      });
+      };
+
+      ws.onclose = () => {
+        console.log("WebSocket disconnected");
+      };
+
+      socketRef.current = ws;
 
       return () => {
-        socketRef.current.disconnect();
+        ws.close();
       };
     }
   }, [navigate, params.room]);
@@ -61,7 +72,9 @@ export const ChatPage = () => {
       const newMessage = { text: message, isMine: true };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-      socketRef.current.emit("send-message", newMessage);
+      if (socketRef.current.readyState === WebSocket.OPEN) {
+        socketRef.current.send(JSON.stringify(newMessage));
+      }
 
       customInput.current.value = "";
       handleResizeHeight();
