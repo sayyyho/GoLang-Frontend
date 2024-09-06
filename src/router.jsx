@@ -4,7 +4,6 @@ import App from "./App";
 import { Loading } from "./pages/Loading/Loading.jsx";
 import { HomePage } from "./pages/Home/Home.main.jsx";
 import { MyPage } from "./pages/MyPage/MyPage.jsx";
-
 import { ChatPage } from "./pages/ChatPage/ChatPage";
 import { ChatInfo } from "./pages/ChatSetting/ChatInfo";
 import { ChatRelation } from "./pages/ChatSetting/ChatRelation";
@@ -15,17 +14,14 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path: "",
+        path: "main",
         element: <HomePage />,
       },
       {
         path: "loading",
         element: <Loading />,
       },
-      {
-        path: "main",
-        element: <ChatPage />,
-      },
+
       {
         path: "chatting/peer/:room",
         element: <ChatPage />,
