@@ -1,65 +1,79 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import * as style from "./styled/EvaluationPage.style.js";
-import mypageimg from "@/assets/img/myPage.png";
-import { useNavigate } from "react-router-dom";
 import { Header } from "../../components/Header/Header.jsx";
 import { DoughnutChartComponent } from "./DoughnutChart.jsx";
 import { ProgressBar } from "./BarChart.jsx";
-import { getEmotionData } from "../../api/getEmotionData.js";
 
 export const EvaluationPage = () => {
-  const [chatList, setChatList] = useState([]); // 상태 관리 추가
 
-  const navigate = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
 
-  // 페이지 네비게이션 처리 함수
-  const NavClick = (e, type) => {
-    e.preventDefault();
-    navigate(`${type}`);
-  };
-
-  // useEffect로 API 호출 및 데이터 가져오기
-  useEffect(() => {
-    const fetchEmotionList = async () => {
-      try {
-        const response = await getEmotionData(); // API 호출
-        setChatList(response.data); // 데이터를 상태에 저장
-        console.log("채팅방리스트", response);
-      } catch (error) {
-        console.error("Failed to fetch chat list", error);
-      }
+    const handleNavigate = (path) => {
+        navigate(path);
     };
 
-    // API 호출
-    fetchEmotionList();
-  }, []); // 빈 배열을 전달하여 컴포넌트 마운트 시에만 실행
+    const mockData = [
+        {
+            person: 'A',
+            date: '2024.08.09',
+            pieData: { '싫어': 10, '진짜': 9, '너무': 8, '꺼져': 7 },
+            score: { positive: 50, neutral: 20, negative: 30 },
+            result: { message: "이번 채팅은 누가 고집이 더 셌어요 그만 좀 부리세요." }
+        },
+        {
+            person: 'B',
+            date: '2024.08.20',
+            pieData: { '사랑하': 7, '그래': 10, '아': 6, '잘자': 9 },
+            score: { positive: 60, neutral: 25, negative: 15 },
+            result: { message: "긍정적인 대화가 많았습니다!" }
+        },
+        {
+            person: 'C',
+            date: '2024.08.23',
+            pieData: { '아 진짜': 9, '너': 8, '꺼져': 7, '새끼': 6 , '킹받는다':2},
+            score: { positive: 40, neutral: 30, negative: 30 },
+            result: { message: "대화가 약간 부정적이었습니다." }
+        }
+    ];
 
-  return (
-    <style.Frame>
-      <style.Wrapper>
-        <Header color={"#1B536B"} isBack={true}>
-          <h2>{"채팅 평가"}</h2>
-        </Header>
-        <style.ScrollWrapper>
-          <style.ContentWrapper>
-            <style.Title>{"홍길동"} 님과의 대화 분석 결과</style.Title>
+    const { person = "익명" } = location.state || {};
+    const selectedData = mockData.find((data) => data.person === person) || {};
 
-            <DoughnutChartComponent />
+    const { pieData = {}, score = { positive: 0, neutral: 0, negative: 0 }, result = { message: "" }, date = "알 수 없음" } = selectedData;
 
-            <style.SecondWrapper>
-              <style.TitleWrapper>
-                <style.SecondTitle>필터링 이전보다</style.SecondTitle>
-                <style.SecondTitle>{40}% 향상된 긍정 점수</style.SecondTitle>
-              </style.TitleWrapper>
+    return (
+        <style.Frame>
+            <style.Wrapper>
+                <Header color={"#1B536B"}>
+                    <h2>{`${person}`} 님과의 대화 평가</h2>
+                    {/* onClick 이벤트 핸들러 수정 */}
+                    <style.HomeButton onClick={() => handleNavigate("/home")}>홈으로 이동</style.HomeButton>
+                </Header>
+                <style.ScrollWrapper>
+                    <style.ContentWrapper>
+                        <h3>{`${date} 대화 분석`}</h3>
 
-              {/* Progress Bar 컴포넌트 */}
-              <ProgressBar positive={50} neutral={30} negative={20} />
-            </style.SecondWrapper>
+                        {/* Pie 차트 */}
+                        <DoughnutChartComponent pieData={pieData}/>
 
-            <style.ThirdWrapper></style.ThirdWrapper>
-          </style.ContentWrapper>
-        </style.ScrollWrapper>
-      </style.Wrapper>
-    </style.Frame>
-  );
+                        <style.SecondWrapper>
+                            <style.TitleWrapper>
+                                <style.SecondTitle>
+                                    나의 감정 분포
+                                </style.SecondTitle>
+                            </style.TitleWrapper>
+                            <ProgressBar positive={score.positive} neutral={score.neutral} negative={score.negative}/>
+                        </style.SecondWrapper>
+
+                        <style.ThirdWrapper>
+                            {result.message}
+                        </style.ThirdWrapper>
+                    </style.ContentWrapper>
+                </style.ScrollWrapper>
+
+            </style.Wrapper>
+        </style.Frame>
+    );
 };

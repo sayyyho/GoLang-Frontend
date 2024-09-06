@@ -9,6 +9,7 @@ export const Frame = styled.div`
   justify-content: center;
   align-items: center;
     font-family: "EF_jejudoldam", sans-serif;
+
     
     
 `;
@@ -29,7 +30,14 @@ export const Wrapper = styled.div`
   
     
 `;
-
+export const HomeButton = styled.button`
+    width: 25%;
+    height: 50%;
+    border-radius: 30px;
+    background-color: blue;
+    color: white;
+    
+`;
 export const ScrollWrapper = styled.div`
     width: 100%;
     overflow-y: scroll;
@@ -41,10 +49,6 @@ width: 100%;
     flex-direction:column;
     align-items: center;
     justify-content: center;
-`;
-
-export const Title = styled.h3`
-margin-top: 50px;
 `;
 
 
@@ -95,7 +99,7 @@ margin-left: 20px;
 export const SecondWrapper = styled.div`
  width: 90%;
     height: 200px;
-    margin-top: 20px;
+    margin-top: 5px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -110,7 +114,6 @@ align-items: center;
 justify-content: center;
 `;
 
-//////////////////Bar///////////////////////
 export const SecondTitle = styled.h2`
     
 `
@@ -119,6 +122,7 @@ width: 100%;
     height: 20%;
     margin-top: 20px;
     background-color: white;
+    
 `;
 
 export const Bar = styled.div`
@@ -160,4 +164,7 @@ width: 90%;
     margin-bottom: 50px;
     border-radius: 30px;
     background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 `;

@@ -51,11 +51,12 @@ export const EvaluationWrapper = styled.div`
 `;
 
 export const SecondWrapper = styled.div`
-  width: 90%;
-  height: 53%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  overflow-y: scroll;
-  margin-top: 40px;
+width: 90%;
+    height: 53%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y:scroll;
+    margin-top: 40px;
+    background-color: beige;
 `;
