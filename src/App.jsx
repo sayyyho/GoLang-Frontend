@@ -51,12 +51,10 @@ const Layout = () => {
 
 function App() {
   return (
-    <RecoilRoot>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <Layout />
-      </ThemeProvider>
-    </RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <Layout />
+    </ThemeProvider>
   );
 }
 
