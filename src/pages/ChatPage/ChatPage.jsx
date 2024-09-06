@@ -39,11 +39,7 @@ export const ChatPage = () => {
     if (!username) {
       // 로컬 스토리지에 username이 없으면 로딩 페이지로 이동
       navigate("/");
-      window.addEventListener("storage", (event) => {
-        if (event.key === "username" && event.newValue) {
-          navigate("/chatting/info/another");
-        }
-      });
+      localStorage.setItem("nextpage", "/chatting/info/another");
     } else {
       // username이 이미 있는 경우 소켓 연결 설정
       socketRef.current = io(`${import.meta.env.VITE_BASE_API}/${params.room}`);
