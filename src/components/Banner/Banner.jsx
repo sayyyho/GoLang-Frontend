@@ -3,21 +3,28 @@ import Slider from 'react-slick';
 import * as style from './styled/Banner.styled.js';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import logoImg from "../../assets/img/buttonimg2.png";
+import bannerImg1 from "../../assets/img/banner1.png";
+import bannerImg2 from "../../assets/img/banner2.png"
+import bannerImg3 from "../../assets/img/banner3.png"
+import bannerImg4 from "../../assets/img/banner4.png"
 
 // 이미지 배열 (Banners)
 const Banners = [
     {
         num: 0,
-        img: logoImg,
+        img: bannerImg1,
     },
     {
         num: 1,
-        img: logoImg,
+        img: bannerImg2,
     },
     {
         num: 2,
-        img: logoImg,
+        img: bannerImg3,
+    },
+    {
+        num: 3,
+        img: bannerImg4,
     },
 ];
 
@@ -28,7 +35,7 @@ const BannerSlider = () => {
         speed: 500,           // 슬라이드 전환 속도
         slidesToShow: 1,      // 한 번에 하나의 슬라이드만 보여줌
         slidesToScroll: 1,    // 한 번에 하나의 슬라이드를 넘김
-        autoplay: true,       // 자동 슬라이드 활성화
+        autoplay: false,       // 자동 슬라이드 활성화
         autoplaySpeed: 5000,  // 자동 슬라이드 속도 (5초)
     };
 

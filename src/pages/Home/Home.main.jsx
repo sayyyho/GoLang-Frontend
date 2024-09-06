@@ -29,7 +29,7 @@ export const HomePage = () => {
         <div>
             <style.Frame>
                 <style.Wrapper>
-                    <Header color={"#1B536B"}>
+                    <Header color={"#1B536B"} >
                         <h1>고랭</h1>
                         <button
                             onClick={() => {
