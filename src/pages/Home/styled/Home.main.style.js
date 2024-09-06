@@ -7,6 +7,7 @@ export const Frame = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+    font-family: "EF_jejudoldam", sans-serif;
    
     
     
@@ -33,11 +34,12 @@ export const Wrapper = styled.div`
 export const ButtonTotalWrapper = styled.div`
 width: 90%;
     height: 30%;
-    margin-top: 70px;
+    margin-top: 120px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background-color: pink;
+
 `;
 
 export const Button = styled.button`

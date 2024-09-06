@@ -1,5 +1,7 @@
 import React from "react";
-import * as style from './styled/home.main.style.js';
+import * as style from './styled/Home.main.style.js';
+import { useNavigate } from 'react-router-dom';
+
 import mypageimg from "../../assets/img/myPage.png";
 import sendimg from "../../assets/img/send.png";
 import buttonimg1 from "../../assets/img/buttonimg1.png";
@@ -9,13 +11,22 @@ import Banner from "../../components/Banner/Banner.jsx";
 
 
 export const HomePage = () => {
+    const navigate = useNavigate();
+    const NavClick = (e, type) =>{
+
+        e.preventDefault();
+        navigate(`${type}`)
+    };
     return (
         <div>
             <style.Frame>
                 <style.Wrapper>
                     <Header color={"#1B536B"}>
                         <h1>고랭</h1>
-                        <button>
+                        <button
+                        onClick={(e)=>{
+                            NavClick(e, '/mypage')
+                        }}>
                             <img src={mypageimg}/>
                         </button>
                     </Header>
