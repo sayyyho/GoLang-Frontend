@@ -9,7 +9,11 @@ export const OnboardingPage4 = () => {
   const getUser = async () => {
     await getUserID();
     setTimeout(() => {
-      navigate("/home");
+      if (localStorage.getItem("nextpage")) {
+        navigate(localStorage.getItem("nextpage"));
+      } else {
+        navigate("/home");
+      }
     }, 1000);
   };
   return (
