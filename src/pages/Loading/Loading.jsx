@@ -1,5 +1,5 @@
 import * as S from "./Loading";
-import LoadingImage from "../../assets/Logo.png";
+import LoadingImage from "../../assets/loadingPage.png";
 
 export const Loading = () => {
   return (
