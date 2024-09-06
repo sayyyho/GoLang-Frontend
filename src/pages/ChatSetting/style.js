@@ -5,7 +5,6 @@ export const Layout = styled.div`
   min-height: 100vh;
   width: 100%;
   display: flex;
-  /* justify-content: center; */
   align-items: center;
   flex-direction: column;
 `;
@@ -66,5 +65,40 @@ export const CustomBtn = styled.button`
   border-radius: 25px;
   background: rgba(21, 77, 186, 0.53);
   margin: 2rem 0;
-  /* filter: blur(0.5px); */
+`;
+
+export const RelationLayout = styled.div`
+  margin-top: 2rem;
+  width: 200px;
+  height: 150px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+`;
+
+export const SelectBox = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => (props.$isCheckd ? "#B0C3F8" : "#f5f5f5")};
+  border-radius: 20px;
+  cursor: pointer;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+`;
+
+export const StyledInput = styled.textarea`
+  /* height: 60px; */
+  margin-top: 3rem;
+  width: 250px;
+  background-color: white;
+  padding: 1.5rem;
+  border-radius: 15px;
+  border: 1px solid #ddd;
+  font-size: 14px;
+  outline: none;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+  font-family: Nunito;
 `;
