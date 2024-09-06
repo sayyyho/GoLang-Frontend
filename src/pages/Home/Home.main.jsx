@@ -33,7 +33,11 @@ export const HomePage = () => {
                     <Banner/>
 
                     <style.ButtonTotalWrapper>
-                        <style.Button>
+                        <style.Button
+                            onClick={(e)=>{
+                                NavClick(e, '/evaluation')
+                            }}
+                        >
                             <style.ButtonCharacter
                             src={buttonimg1}/>
                             <style.ButtonTextWrapper>
