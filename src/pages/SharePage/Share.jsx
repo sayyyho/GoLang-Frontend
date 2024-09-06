@@ -106,6 +106,7 @@ export const Share = () => {
               fontFamily: "Nunito",
               fontSize: "20px",
               fontWeight: 700,
+              textAlign: "center",
             }}
             className="grey-btn"
           >
