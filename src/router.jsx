@@ -10,7 +10,6 @@ import { OnboardingPage1 } from "./pages/OnboardingPage/OnboardingPage.1.jsx";
 import { OnboardingPage2 } from "./pages/OnboardingPage/OnboardingPage.2.jsx";
 import { OnboardingPage3 } from "./pages/OnboardingPage/OnboardingPage.3.jsx";
 import { OnboardingPage4 } from "./pages/OnboardingPage/OnboardingPage.4.jsx";
-import { ChatPage } from "./pages/ChatPage/ChatPage";
 import { ChatInfo } from "./pages/ChatSetting/ChatInfo";
 import { ChatRelation } from "./pages/ChatSetting/ChatRelation";
 
