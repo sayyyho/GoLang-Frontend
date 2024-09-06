@@ -12,6 +12,9 @@ import { postRoom } from "@/api/postRoom.js";
 
 export const HomePage = () => {
     const navigate = useNavigate();
+    const handleNavigate = (path) => {
+        navigate(path);
+    };
 
     const handleMakingRoom = async () => {
         await postRoom({
@@ -21,9 +24,7 @@ export const HomePage = () => {
         navigate("/chatting/info");
     };
 
-    const handleNavigate = (path) => {
-        navigate(path);
-    };
+
 
     return (
         <div>

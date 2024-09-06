@@ -2,9 +2,8 @@ import React from "react";
 import * as style from "./styled/EvaluationPage.style.js";
 
 export const ProgressBar = ({ positive, neutral, negative }) => {
-    const totalScore = positive + neutral + negative; // 전체 합
 
-    // 각 점수의 퍼센트로 width 계산
+    const totalScore = positive + neutral + negative;
     const positiveWidth = (positive / totalScore) * 100;
     const neutralWidth = (neutral / totalScore) * 100;
     const negativeWidth = (negative / totalScore) * 100;
