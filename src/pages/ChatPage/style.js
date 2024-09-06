@@ -4,10 +4,6 @@ import { FaMicrophone, FaPaperPlane } from "react-icons/fa";
 export const ChatLayout = styled.div`
   min-height: 100vh;
   width: 100%;
-  display: flex;
-  /* justify-content: center; */
-  align-items: center;
-  flex-direction: column;
 `;
 
 export const ChattingZone = styled.div`
@@ -16,12 +12,13 @@ export const ChattingZone = styled.div`
   padding: 1.5rem 1rem;
   grid-template-columns: repeat(6, 1fr);
   margin-top: 1rem;
+  gap: 1rem;
 `;
 
 export const SendZone = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   border-radius: 25px 0px 25px 25px;
   background: #5879d4;
   grid-column: 7/2;
@@ -33,6 +30,7 @@ export const ResBox = styled.div`
   display: flex;
   justify-content: center;
   flex-direction: column;
+
   grid-column: 1/6;
   margin-top: 40px;
   font-family: Nunito;

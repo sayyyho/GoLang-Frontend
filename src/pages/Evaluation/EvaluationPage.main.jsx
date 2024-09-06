@@ -6,6 +6,7 @@ import { DoughnutChartComponent } from "./DoughnutChart.jsx";
 import { ProgressBar } from "./BarChart.jsx";
 
 export const EvaluationPage = () => {
+
     const location = useLocation();
     const navigate = useNavigate();
 

@@ -26,7 +26,6 @@ export const HomePage = () => {
   };
 
 
-
   return (
     <div>
       <style.Frame>
@@ -44,10 +43,7 @@ export const HomePage = () => {
           <Banner />
 
           <style.ButtonTotalWrapper>
-            <style.Button
-              // onClick={() => handleNavigate("/evaluation")}
-              onClick={handleMakingRoom}
-            >
+            <style.Button onClick={handleMakingRoom}>
               <style.ButtonCharacter src={buttonimg1} />
               <style.ButtonTextWrapper>
                 <style.ButtonText>갈등 해결 채팅하기</style.ButtonText>
