@@ -54,7 +54,7 @@ const router = createBrowserRouter([
       },
       {
         path: "chatting/peer/:room",
-        element: <ProtectedRoute element={<ChatPage />} />,
+        element: <ChatPage />,
       },
       {
         path: "chatting/info",
