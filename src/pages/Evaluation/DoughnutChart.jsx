@@ -2,6 +2,7 @@ import React from "react";
 import { Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 import CharDataLabels from "chartjs-plugin-datalabels";
+import * as style from "./styled/EvaluationPage.style.js";
 
 // Chart.js 모듈 등록
 ChartJS.register(ArcElement, Tooltip, Legend, CharDataLabels);
@@ -54,9 +55,29 @@ export const DoughnutChartComponent = () => {
     };
 
     return (
-        <div style={{ width: "60%", height: "90%" }}>
-            <Doughnut data={data} options={options} />
-        </div>
+        <style.FirstWrapper>
+            <style.FirstWordCloudWrapper>
+                <div style={{width: "60%", height: "90%"}}>
+                    <Doughnut data={data} options={options}/>
+                </div>
+            </style.FirstWordCloudWrapper>
+
+            <style.FirstContentWrapper>
+                <style.RankingWrapper>
+                    <style.RankingPercent>{35}%</style.RankingPercent>
+                    <style.RankingTitle>{'테슬라'}</style.RankingTitle>
+                </style.RankingWrapper>
+                <style.RankingWrapper>
+                    <style.RankingPercent>{35}%</style.RankingPercent>
+                    <style.RankingTitle>{'테슬라'}</style.RankingTitle>
+                </style.RankingWrapper>
+                <style.RankingWrapper>
+                    <style.RankingPercent>{35}%</style.RankingPercent>
+                    <style.RankingTitle>{'테슬라'}</style.RankingTitle>
+                </style.RankingWrapper>
+            </style.FirstContentWrapper>
+        </style.FirstWrapper>
+
     );
 };
 

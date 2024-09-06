@@ -25,21 +25,21 @@ export const HomePage = () => {
     navigate(path);
   };
 
-  return (
-    <div>
-      <style.Frame>
-        <style.Wrapper>
-          <Header color={"#1B536B"}>
-            <h1>고랭</h1>
-            <button
-              onClick={() => {
-                navigate("/mypage");
-              }}
-            >
-              <img src={mypageimg} alt="My Page" />
-            </button>
-          </Header>
-          <Banner />
+    return (
+        <div>
+            <style.Frame>
+                <style.Wrapper>
+                    <Header color={"#1B536B"} >
+                        <h1>고랭</h1>
+                        <button
+                            onClick={() => {
+                                navigate("/mypage");
+                            }}
+                        >
+                            <img src={mypageimg} alt="My Page" />
+                        </button>
+                    </Header>
+                    <Banner />
 
           <style.ButtonTotalWrapper>
             <style.Button

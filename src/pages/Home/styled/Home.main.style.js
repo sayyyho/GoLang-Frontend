@@ -34,11 +34,10 @@ export const Wrapper = styled.div`
 export const ButtonTotalWrapper = styled.div`
 width: 90%;
     height: 30%;
-    margin-top: 120px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background-color: pink;
 
 `;
 

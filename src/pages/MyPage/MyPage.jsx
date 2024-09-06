@@ -11,7 +11,7 @@ export const MyPage = () => {
         <style.Frame>
             <style.Wrapper>
                 <Header
-                    color={"#1B536B"}>
+                    color={"#1B536B"} isBack={true}>
                     <h2>{"마이페이지"}</h2>
                     <button>
                         <img src={mypageimg}/>
