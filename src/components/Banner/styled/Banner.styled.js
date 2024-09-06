@@ -1,20 +1,19 @@
 import styled from 'styled-components';
 
 export const TotalWrapper = styled.div`
-  width: 100%;
+  width: 90%;
     height: 40%;
   margin: 0 auto;
+    border-radius: 50px;
     
 `;
 
 export const BannerWrap = styled.div`
-  width: 80%;
-    height:80%;
+  width: 100%;
+    height:100%;
     display: flex;
   justify-content: center;
   align-items: center;
-    border-radius: 30px;
-    background-color: white;
     margin-top: 40px;
 `;
 

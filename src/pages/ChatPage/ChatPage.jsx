@@ -3,16 +3,18 @@ import { EndButton } from "@/components/Button/Button";
 import * as S from "./style";
 import BOT_IMG from "@/assets/bot.png";
 import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
-import { DUMMY_TEXT } from "@/constant/dummy";
-import { useRef, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useRef, useEffect, useState } from "react";
 import useSpeechToText from "@/hooks/useSpeechToText";
+import io from "socket.io-client";
+import { useParams } from "react-router-dom";
 
 export const ChatPage = () => {
   const customInput = useRef();
   const recommendZone = useRef();
-  const { transcript, listening, toggleListening } = useSpeechToText();
-  //   const { room } = useParams();
+  const { transcript, toggleListening } = useSpeechToText();
+  const [messages, setMessages] = useState([]); // 메시지 배열
+  const socketRef = useRef();
+  const params = useParams();
 
   const handleResizeHeight = () => {
     if (customInput.current && recommendZone.current) {
@@ -30,6 +32,41 @@ export const ChatPage = () => {
     handleResizeHeight();
   }, [transcript]);
 
+  useEffect(() => {
+    // 소켓 연결 설정
+    socketRef.current = io(`https://api.golang-ktb.site/${params.room}`);
+
+    // 특정 방에 조인
+    const roomName = "y";
+    socketRef.current.emit("join", roomName);
+
+    // 메시지 수신 시 처리
+    socketRef.current.on("message", (message) => {
+      setMessages((prevMessages) => [...prevMessages, message]);
+    });
+
+    // 컴포넌트 언마운트 시 소켓 연결 해제
+    return () => {
+      socketRef.current.disconnect();
+    };
+  }, []);
+
+  const handleSendMessage = () => {
+    const message = customInput.current.value;
+    if (message.trim()) {
+      // 내가 보낸 메시지 추가
+      const newMessage = { text: message, isMine: true };
+      setMessages((prevMessages) => [...prevMessages, newMessage]);
+
+      // 서버로 메시지 전송
+      socketRef.current.emit("send-message", newMessage);
+
+      // 입력창 비우기
+      customInput.current.value = "";
+      handleResizeHeight();
+    }
+  };
+
   return (
     <S.ChatLayout
       style={{
@@ -43,17 +80,22 @@ export const ChatPage = () => {
         <EndButton>끝내기</EndButton>
       </Header>
       <S.ChattingZone>
-        {/* <S.SendZone>{DUMMY_TEXT}</S.SendZone>
-        <S.ResBox>
-          <S.ResZone>{DUMMY_TEXT}</S.ResZone>
-          <S.ResImage
-            style={{
-              backgroundImage: `url(${BOT_IMG})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          ></S.ResImage>
-        </S.ResBox> */}
+        {messages.map((message, index) =>
+          message.isMine ? (
+            <S.SendZone key={index}>{message.text}</S.SendZone>
+          ) : (
+            <S.ResBox key={index}>
+              <S.ResZone>{message.text}</S.ResZone>
+              <S.ResImage
+                style={{
+                  backgroundImage: `url(${BOT_IMG})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                }}
+              ></S.ResImage>
+            </S.ResBox>
+          )
+        )}
       </S.ChattingZone>
       <S.RecommendTextContainer ref={recommendZone}>
         <S.RecommendText>추천1</S.RecommendText>
@@ -68,7 +110,7 @@ export const ChatPage = () => {
           maxLength={500}
         />
         <S.MicrophoneIcon onClick={toggleListening} />
-        <S.SendIcon />
+        <S.SendIcon onClick={handleSendMessage} />
       </S.InputContainer>
     </S.ChatLayout>
   );

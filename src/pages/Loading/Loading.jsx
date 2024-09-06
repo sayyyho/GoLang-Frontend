@@ -13,7 +13,7 @@ export const Loading = () => {
       if (username) {
         navigate("/home"); // username이 있으면 /home으로 이동
       } else {
-        navigate("/onboarding1"); // username이 없으면 /onboarding1fh으로 이동
+        navigate("/onboarding/1"); // username이 없으면 /onboarding1fh으로 이동
       }
     }, 2000);
   }, [navigate]);

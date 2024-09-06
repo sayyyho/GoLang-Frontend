@@ -25,6 +25,7 @@ export const HomePage = () => {
     navigate(path);
   };
 
+
   return (
     <div>
       <style.Frame>

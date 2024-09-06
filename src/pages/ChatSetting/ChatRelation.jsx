@@ -5,11 +5,13 @@ import { useState } from "react";
 import { CHOOSE_TEXT } from "@/constant/chatSetting";
 import { Header } from "@/components/Header/Header";
 import { postDetail } from "@/api/postDetail";
+import { useNavigate } from "react-router-dom";
 
 const relation = ["커플", "친구", "가족", "기타"];
 const sendRelation = ["COUPLE", "FRIEND", "FAMILY", "ETC"];
 
 export const ChatRelation = () => {
+  const navigate = useNavigate();
   const [selectedBox, setSelectedBox] = useState([false, false, false, false]);
   const [selectedNum, setSelectedNum] = useState(null);
   const [chatDetails, setChatDetails] = useState(""); // 상태 추가
@@ -31,7 +33,11 @@ export const ChatRelation = () => {
         chatroomDetails: chatDetails, // 입력된 값 사용
         relationship: sendRelation[selectedNum],
       });
-      console.log(res.data);
+      if (res.data.success) {
+        console.log(
+          `https://golang-ktb.site/${localStorage.getItem("chatroomUUID")}`
+        );
+      }
     } else {
       alert("모든 필드를 채워주세요.");
     }
