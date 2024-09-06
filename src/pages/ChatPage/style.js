@@ -12,7 +12,6 @@ export const ChatLayout = styled.div`
 
 export const ChattingZone = styled.div`
   width: 100%;
-  min-height: 90vh;
   display: grid;
   padding: 1.5rem 1rem;
   grid-template-columns: repeat(6, 1fr);

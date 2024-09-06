@@ -5,8 +5,8 @@ import BOT_IMG from "@/assets/bot.png";
 import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
 import { useRef, useEffect, useState } from "react";
 import useSpeechToText from "@/hooks/useSpeechToText";
-import io from "socket.io-client";
 import { useNavigate, useParams } from "react-router-dom";
+import SockJS from "sockjs-client";
 
 export const ChatPage = () => {
   const customInput = useRef();
@@ -37,25 +37,30 @@ export const ChatPage = () => {
     const username = localStorage.getItem("username");
     localStorage.setItem("chatroomUUID", params.room);
     if (!username) {
-      // 로컬 스토리지에 username이 없으면 로딩 페이지로 이동
+      localStorage.setItem("nextpage", "/chatting/info/another");
       navigate("/");
-      window.addEventListener("storage", (event) => {
-        if (event.key === "username" && event.newValue) {
-          navigate("/chatting/info/another");
-        }
-      });
     } else {
-      // username이 이미 있는 경우 소켓 연결 설정
-      socketRef.current = io(`${import.meta.env.VITE_BASE_API}/${params.room}`);
-      const roomName = "y";
-      socketRef.current.emit("join", roomName);
+      // SockJS 연결 설정
+      const sock = new SockJS(`${import.meta.env.VITE_BASE_API}/chat/sockjs`);
 
-      socketRef.current.on("message", (message) => {
+      sock.onopen = () => {
+        console.log("SockJS connected");
+        sock.send(JSON.stringify({ type: "join", room: params.room }));
+      };
+
+      sock.onmessage = (event) => {
+        const message = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, message]);
-      });
+      };
+
+      sock.onclose = () => {
+        console.log("SockJS disconnected");
+      };
+
+      socketRef.current = sock;
 
       return () => {
-        socketRef.current.disconnect();
+        sock.close();
       };
     }
   }, [navigate, params.room]);
@@ -66,7 +71,9 @@ export const ChatPage = () => {
       const newMessage = { text: message, isMine: true };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-      socketRef.current.emit("send-message", newMessage);
+      if (socketRef.current.readyState === SockJS.OPEN) {
+        socketRef.current.send(JSON.stringify(newMessage));
+      }
 
       customInput.current.value = "";
       handleResizeHeight();
@@ -104,8 +111,8 @@ export const ChatPage = () => {
         )}
       </S.ChattingZone>
       <S.RecommendTextContainer ref={recommendZone}>
-        <S.RecommendText>추천1</S.RecommendText>
-        <S.RecommendText>추천2</S.RecommendText>
+        {/* <S.RecommendText>추천1</S.RecommendText>
+        <S.RecommendText>추천2</S.RecommendText> */}
       </S.RecommendTextContainer>
       <S.InputContainer>
         <S.StyledInput
