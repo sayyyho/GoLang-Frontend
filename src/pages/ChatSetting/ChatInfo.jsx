@@ -65,6 +65,7 @@ export const ChatInfo = () => {
               <p
                 style={{
                   fontSize: "0.8rem",
+                  textAlign: "center",
                 }}
               >
                 {file.name}
