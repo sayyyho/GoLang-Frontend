@@ -64,7 +64,8 @@ export const CustomBtn = styled.button`
   height: 50px;
   border-radius: 25px;
   background: rgba(21, 77, 186, 0.53);
-  margin: 2rem 0;
+  position: fixed;
+  bottom: 3rem;
 `;
 
 export const RelationLayout = styled.div`
