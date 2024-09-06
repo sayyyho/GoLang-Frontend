@@ -11,10 +11,10 @@ export const postPdf = async (file) => {
       },
     });
     console.log(res);
-    if (res.success) {
-      useFilenameStore.getState().setFilename(res.data);
+    if (res) {
+      useFilenameStore.getState().setFilename(res.data.data);
     } else {
-      console.log("가져오기 실패");
+      console.log("가져오 실패");
     }
   } catch (err) {
     console.log(err);

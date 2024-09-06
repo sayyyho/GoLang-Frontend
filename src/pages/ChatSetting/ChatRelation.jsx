@@ -7,26 +7,36 @@ import { Header } from "@/components/Header/Header";
 import { postDetail } from "@/api/postDetail";
 
 const relation = ["커플", "친구", "가족", "기타"];
-const sendRelation = ["COUPLE", "FRIEND", "FAMLIY", "ETC"];
+const sendRelation = ["COUPLE", "FRIEND", "FAMILY", "ETC"];
 
 export const ChatRelation = () => {
   const [selectedBox, setSelectedBox] = useState([false, false, false, false]);
   const [selectedNum, setSelectedNum] = useState(null);
+  const [chatDetails, setChatDetails] = useState(""); // 상태 추가
+
   const handleSelect = (index) => {
     const box = [false, false, false, false];
     box[index] = true;
     setSelectedBox(box);
     setSelectedNum(index);
   };
-  const handleSubmit = async () => {
-    const res = await postDetail({
-      chatroomUUID: "id",
-      chatroomDetails: "detail",
-      filename: "file",
-      relationship: sendRelation[selectedNum],
-    });
-    console.log(res);
+
+  const handleInputChange = (event) => {
+    setChatDetails(event.target.value); // 입력된 값을 상태에 저장
   };
+
+  const handleSubmit = async () => {
+    if (selectedNum !== null && chatDetails.trim() !== "") {
+      const res = await postDetail({
+        chatroomDetails: chatDetails, // 입력된 값 사용
+        relationship: sendRelation[selectedNum],
+      });
+      console.log(res.data);
+    } else {
+      alert("모든 필드를 채워주세요.");
+    }
+  };
+
   return (
     <S.Layout
       style={{
@@ -46,9 +56,7 @@ export const ChatRelation = () => {
       <S.RelationLayout>
         {relation.map((text, index) => (
           <S.SelectBox
-            onClick={() => {
-              handleSelect(index);
-            }}
+            onClick={() => handleSelect(index)}
             key={index}
             $isCheckd={selectedBox[index]}
           >
@@ -60,6 +68,8 @@ export const ChatRelation = () => {
         maxLength={300}
         rows={7}
         placeholder="상대와의 갈등 상황을 입력해주세요."
+        value={chatDetails}
+        onChange={handleInputChange} // 입력 핸들러 추가
       />
       <S.CustomBtn onClick={handleSubmit}>
         <S.Text color="white">Start Chatting</S.Text>
