@@ -3,21 +3,21 @@ import Slider from 'react-slick';
 import * as style from './styled/Banner.styled.js';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useNavigate } from 'react-router-dom';
+import logoImg from "../../assets/img/buttonimg2.png";
 
 // 이미지 배열 (Banners)
 const Banners = [
     {
         num: 0,
-        img: "../../../assets/img/homeBackground.png",
+        img: logoImg,
     },
     {
         num: 1,
-        img: "../../../assets/img/homeBackground.png",
+        img: logoImg,
     },
     {
         num: 2,
-        img: "../../../assets/img/homeBackground.png",
+        img: logoImg,
     },
 ];
 
@@ -32,19 +32,14 @@ const BannerSlider = () => {
         autoplaySpeed: 5000,  // 자동 슬라이드 속도 (5초)
     };
 
-    const navigate = useNavigate();
 
-    // 특정 슬라이드 클릭 시 페이지 이동 (예: 'lifetip' 페이지)
-    const handleNavigateLifetip = () => {
-        navigate('/lifetip');
-    };
 
     return (
         <style.TotalWrapper>
             <Slider {...settings}>
                 {Banners.map((card) => (
-                    <style.BannerWrap key={card.num} onClick={handleNavigateLifetip}>
-                        <style.MainImg src={card.img.default} alt={`Banner ${card.num}`} />
+                    <style.BannerWrap key={card.num} >
+                        <style.MainImg src={card.img} alt={`Banner ${card.num}`} />
                     </style.BannerWrap>
                 ))}
             </Slider>
