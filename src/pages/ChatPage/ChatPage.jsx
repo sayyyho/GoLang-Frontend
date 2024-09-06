@@ -39,7 +39,7 @@ export const ChatPage = () => {
       }}
     >
       <Header color="black">
-        <p>고랭 : 2인 채팅</p>
+        <p>2인 채팅</p>
         <EndButton>끝내기</EndButton>
       </Header>
       <S.ChattingZone>

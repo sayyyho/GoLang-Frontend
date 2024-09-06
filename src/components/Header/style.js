@@ -7,7 +7,8 @@ export const Layout = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.5rem 0 3rem;
+  padding: ${({ $isBack }) =>
+    $isBack ? "0 1.5rem 0 3.5rem" : "0 1.5rem 0 1.5rem"};
   font-family: "EF_jejudoldam", sans-serif;
   color: ${(props) => props.color || "black"};
   background-color: ${(props) => props.background || "white"};
@@ -20,8 +21,8 @@ export const Layout = styled.div`
 
 export const BackIcon = styled(FaAngleLeft)`
   position: absolute;
-  left: 15px;
-  font-size: 20px;
+  left: 10px;
+  font-size: 1.5rem;
   color: black;
   cursor: pointer;
 `;
