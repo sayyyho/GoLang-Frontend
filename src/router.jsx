@@ -2,8 +2,9 @@ import { createBrowserRouter } from "react-router-dom";
 import React from "react";
 import App from "./App";
 import { Loading } from "./pages/Loading/Loading.jsx";
-import {HomePage} from "./pages/Home/Home.main.jsx";
+import { HomePage } from "./pages/Home/Home.main.jsx";
 import { ChatPage } from "./pages/ChatPage/ChatPage";
+import { ChatInfo } from "./pages/ChatSetting/ChatInfo";
 
 const router = createBrowserRouter([
   {
@@ -11,7 +12,7 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
-        path:"",
+        path: "",
         element: <HomePage />,
       },
       {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
         path: "chatting/peer/:room",
         element: <ChatPage />,
       },
+      {
+        path: "chatting/info/peer",
+        element: <ChatInfo />,
+      },
+      // {
+      //   path: "chatting/peer/relation",
+      //   element: <ChatRelation />,
+      // },
     ],
     // errorElement: <NotFound />,
   },
