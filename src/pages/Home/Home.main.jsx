@@ -11,19 +11,19 @@ import Banner from "../../components/Banner/Banner.jsx";
 import { postRoom } from "@/api/postRoom.js";
 
 export const HomePage = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleMakingRoom = async () => {
-        await postRoom({
-            chatroomName: null,
-            chatroomType: "CHAT_PERSON",
-        });
-        navigate("/chatting/info");
-    };
+  const handleMakingRoom = async () => {
+    await postRoom({
+      chatroomName: null,
+      chatroomType: "CHAT_PERSON",
+    });
+    navigate("/chatting/info");
+  };
 
-    const handleNavigate = (path) => {
-        navigate(path);
-    };
+  const handleNavigate = (path) => {
+    navigate(path);
+  };
 
     return (
         <div>
@@ -41,27 +41,28 @@ export const HomePage = () => {
                     </Header>
                     <Banner />
 
-                    <style.ButtonTotalWrapper>
-                        <style.Button
-                            onClick={() => handleNavigate("/evaluation")}
-                        >
-                            <style.ButtonCharacter src={buttonimg1} />
-                            <style.ButtonTextWrapper>
-                                <style.ButtonText>갈등 해결 채팅하기</style.ButtonText>
-                                <style.ButtonImg src={sendimg} />
-                            </style.ButtonTextWrapper>
-                        </style.Button>
+          <style.ButtonTotalWrapper>
+            <style.Button
+              // onClick={() => handleNavigate("/evaluation")}
+              onClick={handleMakingRoom}
+            >
+              <style.ButtonCharacter src={buttonimg1} />
+              <style.ButtonTextWrapper>
+                <style.ButtonText>갈등 해결 채팅하기</style.ButtonText>
+                <style.ButtonImg src={sendimg} />
+              </style.ButtonTextWrapper>
+            </style.Button>
 
-                        <style.Button>
-                            <style.ButtonTextWrapper2>
-                                <style.ButtonImg src={sendimg} angle={180} />
-                                <style.ButtonText>고랭과 채팅하기</style.ButtonText>
-                            </style.ButtonTextWrapper2>
-                            <style.ButtonCharacter2 src={buttonimg2} />
-                        </style.Button>
-                    </style.ButtonTotalWrapper>
-                </style.Wrapper>
-            </style.Frame>
-        </div>
-    );
+            <style.Button>
+              <style.ButtonTextWrapper2>
+                <style.ButtonImg src={sendimg} angle={180} />
+                <style.ButtonText>고랭과 채팅하기</style.ButtonText>
+              </style.ButtonTextWrapper2>
+              <style.ButtonCharacter2 src={buttonimg2} />
+            </style.Button>
+          </style.ButtonTotalWrapper>
+        </style.Wrapper>
+      </style.Frame>
+    </div>
+  );
 };
