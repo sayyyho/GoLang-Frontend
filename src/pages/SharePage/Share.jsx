@@ -94,6 +94,9 @@ export const Share = () => {
 
           <p
             style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
               color: "#647DC3",
               fontFamily: "Nunito",
               fontSize: "20px",
