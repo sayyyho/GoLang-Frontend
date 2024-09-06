@@ -33,22 +33,24 @@ export const Wrapper = styled.div`
 ///////////////////////////////////////////////////////////////
 export const ButtonTotalWrapper = styled.div`
 width: 90%;
-    height: 30%;
+    height: 35%;
     margin-top: 100px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
 `;
 
 export const Button = styled.button`
     width: 100%;
-    height: 120px;
+    height: 150px;
     border-radius: 30px;
     background-color: white;
     display: flex;
     align-items: flex-end;
     justify-content: center;
+    margin: 10px;
 `;
 export const ButtonCharacter = styled.img`
 width: 150px;
