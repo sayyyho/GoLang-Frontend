@@ -4,7 +4,7 @@ import useRoomStore from "@/store/room";
 export const postRoom = async ({ chatroomName, chatroomType }) => {
   try {
     const res = await instance.post(`/api/chatrooms`, {
-      username: localStorage.getItem("useranme"),
+      username: localStorage.getItem("username"),
       chatroomName: "test",
       chatroomType,
     });
