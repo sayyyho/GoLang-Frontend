@@ -64,12 +64,12 @@ export const InputContainer = styled.div`
   bottom: 20px;
 `;
 
-export const StyledInput = styled.input`
-  height: 60px;
+export const StyledInput = styled.textarea`
+  /* height: 60px; */
   width: 100%;
   background-color: white;
-  padding: 10px 50px 10px 20px;
-  border-radius: 50px;
+  padding: 10px 70px 10px 20px;
+  border-radius: 15px;
   border: 1px solid #ddd;
   font-size: 16px;
   outline: none;
@@ -124,4 +124,24 @@ export const SendCustomIcon = styled(FaPaperPlane)`
   font-size: 20px;
   color: #ffffff;
   cursor: pointer;
+`;
+
+export const RecommendTextContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: sticky;
+  bottom: 90px;
+  width: 85%;
+  margin: 0 auto;
+  gap: 1rem;
+`;
+
+export const RecommendText = styled.div`
+  width: 100%;
+  background-color: #b0c3f8;
+  padding: 1rem;
+  border-radius: 50px;
+  font-size: 16px;
 `;
