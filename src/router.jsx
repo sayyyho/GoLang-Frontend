@@ -13,6 +13,7 @@ import { OnboardingPage4 } from "./pages/OnboardingPage/OnboardingPage.4.jsx";
 import { ChatInfo } from "./pages/ChatSetting/ChatInfo";
 import { ChatRelation } from "./pages/ChatSetting/ChatRelation";
 import { Share } from "./pages/SharePage/Share";
+import { ChatAnother } from "./pages/ChatSetting/ChatAnother";
 
 // ProtectedRoute 컴포넌트 정의
 const ProtectedRoute = ({ element }) => {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "chatting/info/relation",
         element: <ProtectedRoute element={<ChatRelation />} />,
+      },
+      {
+        path: "chatting/info/another",
+        element: <ProtectedRoute element={<ChatAnother />} />,
       },
       {
         path: "mypage",
