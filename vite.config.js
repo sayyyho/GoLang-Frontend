@@ -12,6 +12,9 @@ export default defineConfig({
   optimizeDeps: {
     include: ['react-slick', 'slick-carousel'],
   },
+  define: {
+    global: 'globalThis', // 브라우저에서 global 변수를 globalThis로 대체
+  },
 
 
 });
