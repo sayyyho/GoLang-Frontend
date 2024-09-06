@@ -36,6 +36,7 @@ const router = createBrowserRouter([
       //   path: "chatting/peer/relation",
       //   element: <ChatRelation />,
       // },
+      {
         path: "mypage",
         element: <MyPage />,
       },
