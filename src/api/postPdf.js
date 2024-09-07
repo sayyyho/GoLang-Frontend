@@ -1,5 +1,4 @@
 import { instance } from "./instance";
-import useFilenameStore from "@/store/filename";
 
 export const postPdf = async (file) => {
   try {
