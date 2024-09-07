@@ -42,7 +42,7 @@ export const ChatBot = () => {
       handleResizeHeight();
 
       try {
-        const response = await postAIBot({ message });
+        const response = await postAIBot(message);
         if (response.data.data) {
           const botResponse = {
             text: response.data.polishedMessage,
@@ -87,6 +87,18 @@ export const ChatBot = () => {
           <EndButton>끝내기</EndButton>
         </Header>
         <S.ChattingZone>
+          <S.ResBox key={index}>
+            <S.ResZone>
+              반갑습니다 ☺️{localStorage.getItem("relation")}모드입니다.
+            </S.ResZone>
+            <S.ResImage
+              style={{
+                backgroundImage: `url(${BOT_IMG})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></S.ResImage>
+          </S.ResBox>
           {messages.map((message, index) =>
             message.isMine ? (
               <S.SendZone key={index}>{message.text}</S.SendZone>
