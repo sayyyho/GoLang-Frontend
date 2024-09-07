@@ -6,7 +6,6 @@ import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
 import { useRef, useEffect, useState } from "react";
 import useSpeechToText from "@/hooks/useSpeechToText";
 import { useNavigate, useParams } from "react-router-dom";
-import SockJS from "sockjs-client";
 
 export const ChatPage = () => {
   const customInput = useRef();
@@ -40,27 +39,27 @@ export const ChatPage = () => {
       localStorage.setItem("nextpage", "/chatting/info/another");
       navigate("/");
     } else {
-      // SockJS 연결 설정
-      const sock = new SockJS(`https://api.golang-ktb.site/chat/ws`);
+      // WebSocket 연결 설정
+      const socket = new WebSocket(`wss://api.golang-ktb.site/chat/ws`);
 
-      sock.onopen = () => {
-        console.log("SockJS connected");
-        sock.send(JSON.stringify({ type: "join", room: params.room }));
+      socket.onopen = () => {
+        console.log("WebSocket connected");
+        socket.send(JSON.stringify({ type: "join", room: params.room }));
       };
 
-      sock.onmessage = (event) => {
+      socket.onmessage = (event) => {
         const message = JSON.parse(event.data);
         setMessages((prevMessages) => [...prevMessages, message]);
       };
 
-      sock.onclose = () => {
-        console.log("SockJS disconnected");
+      socket.onclose = () => {
+        console.log("WebSocket disconnected");
       };
 
-      socketRef.current = sock;
+      socketRef.current = socket;
 
       return () => {
-        sock.close();
+        socket.close();
       };
     }
   }, [navigate, params.room]);
@@ -71,7 +70,7 @@ export const ChatPage = () => {
       const newMessage = { text: message, isMine: true };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-      if (socketRef.current.readyState === SockJS.OPEN) {
+      if (socketRef.current.readyState === WebSocket.OPEN) {
         socketRef.current.send(JSON.stringify(newMessage));
       }
 
