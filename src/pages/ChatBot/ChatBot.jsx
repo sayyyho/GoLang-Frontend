@@ -6,7 +6,6 @@ import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
 import { useRef, useEffect, useState } from "react";
 import useSpeechToText from "@/hooks/useSpeechToText";
 import { useNavigate, useParams } from "react-router-dom";
-import SockJS from "sockjs-client";
 
 // Mock data for filtered employee messages
 const filteredEmployeeMessages = [
@@ -92,6 +91,18 @@ export const ChatBot = () => {
           <EndButton>끝내기</EndButton>
         </Header>
         <S.ChattingZone>
+          <S.ResBox>
+            <S.ResZone>
+              안녕하세요! 고랭입니다! 바로 상사모드로 시작합니다.
+            </S.ResZone>
+            <S.ResImage
+              style={{
+                backgroundImage: `url(${BOT_IMG})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+              }}
+            ></S.ResImage>
+          </S.ResBox>
           {messages.map((message, index) =>
             message.isMine ? (
               <S.SendZone key={index}>{message.text}</S.SendZone>
