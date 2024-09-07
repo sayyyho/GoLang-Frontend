@@ -7,6 +7,10 @@ import { useRef, useEffect, useState } from "react";
 import useSpeechToText from "@/hooks/useSpeechToText";
 import { useNavigate, useParams } from "react-router-dom";
 
+import * as Stomp from "@stomp/stompjs";
+import SockJS from "sockjs-client";
+
+// 나머지 코드 그대로 유지
 export const ChatPage = () => {
   const customInput = useRef();
   const recommendZone = useRef();
@@ -19,8 +23,7 @@ export const ChatPage = () => {
   const handleResizeHeight = () => {
     if (customInput.current && recommendZone.current) {
       customInput.current.style.height = "auto";
-      customInput.current.style.height =
-        customInput.current.scrollHeight + "px";
+      customInput.current.style.height = `${customInput.current.scrollHeight}px`;
 
       const bottomOffset = 30 + customInput.current.scrollHeight;
       recommendZone.current.style.bottom = `${bottomOffset}px`;
@@ -39,27 +42,23 @@ export const ChatPage = () => {
       localStorage.setItem("nextpage", "/chatting/info/another");
       navigate("/");
     } else {
-      // WebSocket 연결 설정
-      const socket = new WebSocket(`https://api.golang-ktb.site/chat/ws`);
+      // WebSocket 및 STOMP 클라이언트 설정
+      const sock = new SockJS(`https://api.golang-ktb.site/chat/ws`);
+      const stompClient = Stomp.over(sock);
 
-      socket.onopen = () => {
-        console.log("WebSocket connected");
-        socket.send(JSON.stringify({ type: "join", room: params.room }));
-      };
+      stompClient.connect({}, () => {
+        stompClient.subscribe(`/sub/chatrooms/${params.room}`, (message) => {
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            JSON.parse(message.body),
+          ]);
+        });
+      });
 
-      socket.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        setMessages((prevMessages) => [...prevMessages, message]);
-      };
-
-      socket.onclose = () => {
-        console.log("WebSocket disconnected");
-      };
-
-      socketRef.current = socket;
+      socketRef.current = stompClient;
 
       return () => {
-        socket.close();
+        stompClient.disconnect();
       };
     }
   }, [navigate, params.room]);
@@ -70,8 +69,8 @@ export const ChatPage = () => {
       const newMessage = { text: message, isMine: true };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-      if (socketRef.current.readyState === WebSocket.OPEN) {
-        socketRef.current.send(JSON.stringify(newMessage));
+      if (socketRef.current && socketRef.current.connected) {
+        socketRef.current.send("/pub/messages", {}, JSON.stringify(newMessage));
       }
 
       customInput.current.value = "";
@@ -111,22 +110,18 @@ export const ChatPage = () => {
             )
           )}
         </S.ChattingZone>
-        <S.RecommendTextContainer ref={recommendZone}>
-          {/* <S.RecommendText>추천1</S.RecommendText>
-        <S.RecommendText>추천2</S.RecommendText> */}
-        </S.RecommendTextContainer>
+        <S.InputContainer>
+          <S.StyledInput
+            rows={1}
+            ref={customInput}
+            onChange={() => {}}
+            onInput={handleResizeHeight}
+            maxLength={500}
+          />
+          <S.MicrophoneIcon onClick={toggleListening} />
+          <S.SendIcon onClick={handleSendMessage} />
+        </S.InputContainer>
       </S.ChatLayout>
-      <S.InputContainer>
-        <S.StyledInput
-          rows={1}
-          ref={customInput}
-          onChange={() => {}}
-          onInput={handleResizeHeight}
-          maxLength={500}
-        />
-        <S.MicrophoneIcon onClick={toggleListening} />
-        <S.SendIcon onClick={handleSendMessage} />
-      </S.InputContainer>
     </div>
   );
 };
