@@ -32,7 +32,49 @@ export const MyPage = () => {
             pieData: { '꺼져': 9, '새끼': 8, '싫어': 7, '그만해': 6 ,'개':2},
             score: { positive: 40, neutral: 30, negative: 30 },
             result: { message: "대화가 약간 부정적이었습니다." }
-        }
+        },
+        {
+            person: '김현수',
+            date: '2024.09.07',
+            pieData: { '꺼져': 9, '새끼': 8, '싫어': 7, '그만해': 6 ,'개':2},
+            score: { positive: 40, neutral: 30, negative: 30 },
+            result: { message: "대화가 약간 부정적이었습니다." }
+        },
+        {
+            person: '김현수',
+            date: '2024.09.07',
+            pieData: { '꺼져': 9, '새끼': 8, '싫어': 7, '그만해': 6 ,'개':2},
+            score: { positive: 40, neutral: 30, negative: 30 },
+            result: { message: "대화가 약간 부정적이었습니다." }
+        },
+        {
+            person: '김현수',
+            date: '2024.09.07',
+            pieData: { '꺼져': 9, '새끼': 8, '싫어': 7, '그만해': 6 ,'개':2},
+            score: { positive: 40, neutral: 30, negative: 30 },
+            result: { message: "대화가 약간 부정적이었습니다." }
+        },
+        {
+            person: '김현수',
+            date: '2024.09.07',
+            pieData: { '꺼져': 9, '새끼': 8, '싫어': 7, '그만해': 6 ,'개':2},
+            score: { positive: 40, neutral: 30, negative: 30 },
+            result: { message: "대화가 약간 부정적이었습니다." }
+        },
+        {
+            person: '김현수',
+            date: '2024.09.07',
+            pieData: { '꺼져': 9, '새끼': 8, '싫어': 7, '그만해': 6 ,'개':2},
+            score: { positive: 40, neutral: 30, negative: 30 },
+            result: { message: "대화가 약간 부정적이었습니다." }
+        },
+        {
+            person: '문보경',
+            date: '2024.09.07',
+            pieData: { '좋다': 7, '사랑해': 10, '잘자': 6, '안녕': 9, '할것이다': 8 },
+            score: { positive: 60, neutral: 25, negative: 15 },
+            result: { message: "긍정적인 대화가 많았습니다!" }
+        },
     ];
 
     // 클릭 시 해당 이름의 데이터를 EvaluationPage로 전달
@@ -53,14 +95,7 @@ export const MyPage = () => {
                     </button>
                 </Header>
 
-                <style.FirstWrapper>
-                    <style.TitleWrapper>
-                        <style.Title>일주일간 대화 분석 내역</style.Title>
-                    </style.TitleWrapper>
-                    <style.EvaluationWrapper>
-                        {/* MyDataComponent로 데이터 전달 */}
-                    </style.EvaluationWrapper>
-                </style.FirstWrapper>
+
 
                 <style.SecondWrapper>
                     {mockData.map((data, index) => (
