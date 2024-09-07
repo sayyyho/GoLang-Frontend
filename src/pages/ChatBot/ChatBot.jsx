@@ -42,7 +42,7 @@ export const ChatBot = () => {
       handleResizeHeight();
 
       try {
-        const response = await postAIBot({ message });
+        const response = await postAIBot(message);
         if (response && response.data && response.data.data) {
           const botResponse = {
             text: response.data.data,
