@@ -54,10 +54,15 @@ export const ChatPage = () => {
 
       stompClient.onConnect = () => {
         stompClient.subscribe(`/sub/chatrooms/${params.room}`, (message) => {
-          setMessages((prevMessages) => [
-            ...prevMessages,
-            JSON.parse(message.body),
-          ]);
+          const receivedMessage = JSON.parse(message.body);
+
+          // 서버에서 수신한 메시지가 내가 보낸 메시지가 아닌 경우에만 추가
+          if (receivedMessage.username !== localStorage.getItem("username")) {
+            setMessages((prevMessages) => [
+              ...prevMessages,
+              { ...receivedMessage, isMine: false },
+            ]);
+          }
         });
       };
 
