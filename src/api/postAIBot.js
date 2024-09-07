@@ -9,6 +9,7 @@ export const postAIBot = async (chatMessage) => {
       chatType: "CHAT_SUMMARY",
       relation: localStorage.getItem("relation"),
     });
+    console.log(res);
     return res;
   } catch (err) {
     console.log(err);

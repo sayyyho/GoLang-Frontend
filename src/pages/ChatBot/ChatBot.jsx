@@ -43,11 +43,8 @@ export const ChatBot = () => {
 
       try {
         const response = await postAIBot(message);
-        if (response.data.data) {
-          const botResponse = {
-            text: response.data.polishedMessage,
-            isMine: false,
-          };
+        if (response) {
+          const botResponse = response.data.data;
           setMessages((prevMessages) => [...prevMessages, botResponse]);
           handleResizeHeight();
         }
