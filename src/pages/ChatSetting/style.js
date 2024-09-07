@@ -92,7 +92,7 @@ export const SelectBox = styled.div`
 
 export const StyledInput = styled.textarea`
   /* height: 60px; */
-  margin-top: 3rem;
+  margin-top: 1.5rem;
   width: 250px;
   background-color: white;
   padding: 1.5rem;
