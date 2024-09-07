@@ -34,7 +34,6 @@ width: 90%;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: pink;
 `;
 
 export const Button = styled.button`

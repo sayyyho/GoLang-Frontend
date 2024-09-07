@@ -8,7 +8,7 @@ import useSpeechToText from "@/hooks/useSpeechToText";
 import { useNavigate, useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
 
-export const ChatPage = () => {
+export const ChatBot = () => {
   const customInput = useRef();
   const recommendZone = useRef();
   const { transcript, toggleListening } = useSpeechToText();
@@ -41,7 +41,7 @@ export const ChatPage = () => {
       navigate("/");
     } else {
       // SockJS 연결 설정
-      const sock = new SockJS(`https://api.golang-ktb.site/chat/ws`);
+      const sock = new SockJS(`${import.meta.env.VITE_BASE_API}/chat/sockjs`);
 
       sock.onopen = () => {
         console.log("SockJS connected");
@@ -91,7 +91,7 @@ export const ChatPage = () => {
     >
       <S.ChatLayout>
         <Header color="black">
-          <p>2인 채팅</p>
+          <p>고랭과 가상 채팅</p>
           <EndButton>끝내기</EndButton>
         </Header>
         <S.ChattingZone>
