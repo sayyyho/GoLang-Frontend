@@ -78,8 +78,15 @@ export const ChatPage = () => {
   const handleSendMessage = () => {
     const message = customInput.current.value;
     if (message.trim()) {
-      const newMessage = { text: message, isMine: true };
-      setMessages((prevMessages) => [...prevMessages, newMessage]);
+      const newMessage = {
+        chatroomUUID: localStorage.getItem("chatroomUUID"),
+        username: localStorage.getItem("username"),
+        message: message,
+      };
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { ...newMessage, isMine: true },
+      ]);
 
       if (socketRef.current && socketRef.current.connected) {
         socketRef.current.publish({
@@ -110,10 +117,10 @@ export const ChatPage = () => {
         <S.ChattingZone>
           {messages.map((message, index) =>
             message.isMine ? (
-              <S.SendZone key={index}>{message.text}</S.SendZone>
+              <S.SendZone key={index}>{message.message}</S.SendZone>
             ) : (
               <S.ResBox key={index}>
-                <S.ResZone>{message.text}</S.ResZone>
+                <S.ResZone>{message.message}</S.ResZone>
                 <S.ResImage
                   style={{
                     backgroundImage: `url(${BOT_IMG})`,
