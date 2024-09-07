@@ -6,11 +6,9 @@ import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
 import { useRef, useEffect, useState } from "react";
 import useSpeechToText from "@/hooks/useSpeechToText";
 import { useNavigate, useParams } from "react-router-dom";
-
-import * as Stomp from "@stomp/stompjs";
+import { Client } from "@stomp/stompjs";
 import SockJS from "sockjs-client";
 
-// 나머지 코드 그대로 유지
 export const ChatPage = () => {
   const customInput = useRef();
   const recommendZone = useRef();
@@ -44,21 +42,35 @@ export const ChatPage = () => {
     } else {
       // WebSocket 및 STOMP 클라이언트 설정
       const sock = new SockJS(`https://api.golang-ktb.site/chat/ws`);
-      const stompClient = Stomp.over(sock);
+      const stompClient = new Client({
+        webSocketFactory: () => sock,
+        debug: function (str) {
+          console.log(str);
+        },
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
+      });
 
-      stompClient.connect({}, () => {
+      stompClient.onConnect = () => {
         stompClient.subscribe(`/sub/chatrooms/${params.room}`, (message) => {
           setMessages((prevMessages) => [
             ...prevMessages,
             JSON.parse(message.body),
           ]);
         });
-      });
+      };
+
+      stompClient.onDisconnect = () => {
+        console.log("Disconnected");
+      };
+
+      stompClient.activate();
 
       socketRef.current = stompClient;
 
       return () => {
-        stompClient.disconnect();
+        stompClient.deactivate();
       };
     }
   }, [navigate, params.room]);
@@ -70,7 +82,10 @@ export const ChatPage = () => {
       setMessages((prevMessages) => [...prevMessages, newMessage]);
 
       if (socketRef.current && socketRef.current.connected) {
-        socketRef.current.send("/pub/messages", {}, JSON.stringify(newMessage));
+        socketRef.current.publish({
+          destination: "/pub/messages",
+          body: JSON.stringify(newMessage),
+        });
       }
 
       customInput.current.value = "";
