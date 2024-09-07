@@ -50,19 +50,21 @@ export const EvaluationPage = () => {
                     <style.HomeButton onClick={() => handleNavigate("/home")}>홈으로 이동</style.HomeButton>
                 </Header>
                 <style.ScrollWrapper>
+
                     <style.ContentWrapper>
                         <h3>{`${date} 대화 분석`}</h3>
 
-
                         <DoughnutChartComponent pieData={pieData}/>
                         <style.SecondWrapper>
+
+                            <style.SecondTitle>
+                                필터링 이전 보다
+                            </style.SecondTitle>
+                            <style.SecondTitle>
+                                {40}% 향상된 긍정 점수
+                            </style.SecondTitle>
                             <ProgressBar positive={score.positive} neutral={score.neutral} negative={score.negative}/>
                         </style.SecondWrapper>
-
-
-                        <style.ThirdWrapper>
-                            {result.message}
-                        </style.ThirdWrapper>
                     </style.ContentWrapper>
                 </style.ScrollWrapper>
 
