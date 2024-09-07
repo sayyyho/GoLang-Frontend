@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 import * as style from "./styled/EvaluationPage.style.js";
 import { Header } from "../../components/Header/Header.jsx";
 import { DoughnutChartComponent } from "./DoughnutChart.jsx";
@@ -7,6 +7,10 @@ import { ProgressBar } from "./BarChart.jsx";
 
 export const EvaluationPage = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+    const handleNavigate = (path) => {
+        navigate(path);
+    };
 
     const mockData = [
         {
@@ -41,25 +45,28 @@ export const EvaluationPage = () => {
         <style.Frame>
             <style.Wrapper>
                 <Header color={"#1B536B"}>
-                    <h2>{`${person}`} 님과의 대화 평가</h2>
+                    <h3>{`${person}`} 님과의 대화 평가</h3>
 
                     <style.HomeButton onClick={() => handleNavigate("/home")}>홈으로 이동</style.HomeButton>
                 </Header>
-
-                <style.ContentWrapper>
-                    <h3>{`${date} 대화 분석`}</h3>
+                <style.ScrollWrapper>
+                    <style.ContentWrapper>
+                        <h3>{`${date} 대화 분석`}</h3>
 
 
                         <DoughnutChartComponent pieData={pieData}/>
-                    <style.SecondWrapper>
-                        <ProgressBar positive={score.positive} neutral={score.neutral} negative={score.negative} />
-                    </style.SecondWrapper>
+                        <style.SecondWrapper>
+                            <ProgressBar positive={score.positive} neutral={score.neutral} negative={score.negative}/>
+                        </style.SecondWrapper>
 
 
-                    <style.ThirdWrapper>
-                        {result.message}
-                    </style.ThirdWrapper>
-                </style.ContentWrapper>
+                        <style.ThirdWrapper>
+                            {result.message}
+                        </style.ThirdWrapper>
+                    </style.ContentWrapper>
+                </style.ScrollWrapper>
+
+
             </style.Wrapper>
         </style.Frame>
     );
