@@ -34,7 +34,7 @@ export const HomeButton = styled.button`
     width: 25%;
     height: 50%;
     border-radius: 30px;
-    background-color: blue;
+    background-color:#154DBA;
     color: white;
     
 `;

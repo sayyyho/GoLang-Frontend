@@ -12,6 +12,7 @@ export default defineConfig({
   optimizeDeps: {
     include: ["react-slick", "slick-carousel"],
   },
+
   define: {
     global: "window",
   },

@@ -58,5 +58,4 @@ width: 90%;
     justify-content: center;
     overflow-y:scroll;
     margin-top: 40px;
-    background-color: beige;
 `;
