@@ -28,7 +28,21 @@ export const BotRelation = () => {
   };
 
   const handleSubmit = async () => {
-    navigate("/chatting/bot/1");
+    if (selectedNum !== null && chatDetails.trim() !== "") {
+      localStorage.setItem("relation", sendRelation[selectedNum]);
+      const res = await postDetail({
+        chatroomDetails: chatDetails, // 입력된 값 사용
+        relationship: sendRelation[selectedNum],
+      });
+      if (res.data.success) {
+        console.log(
+          `https://golang-ktb.site/${localStorage.getItem("chatroomUUID")}`
+        );
+        navigate("/chatting/bot/1");
+      }
+    } else {
+      alert("모든 필드를 채워주세요.");
+    }
   };
 
   return (
@@ -40,7 +54,7 @@ export const BotRelation = () => {
       }}
     >
       <Header color="black" isBack={true}>
-        고랭과 채팅
+        2인 채팅
       </Header>
 
       <img src={REL_GOLANG} />
