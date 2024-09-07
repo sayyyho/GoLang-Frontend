@@ -29,6 +29,7 @@ export const ChatRelation = () => {
 
   const handleSubmit = async () => {
     if (selectedNum !== null && chatDetails.trim() !== "") {
+      localStorage.setItem("relation", sendRelation[selectedNum]);
       const res = await postDetail({
         chatroomDetails: chatDetails, // 입력된 값 사용
         relationship: sendRelation[selectedNum],
