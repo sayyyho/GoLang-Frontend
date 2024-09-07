@@ -1,128 +1,149 @@
-import React, { useState, useEffect, useRef } from "react";
-import * as Stomp from "@stomp/stompjs";
-import SockJS from "sockjs-client";
-import * as S from "./style";
 import { Header } from "@/components/Header/Header";
 import { EndButton } from "@/components/Button/Button";
+import * as S from "./style";
+import BOT_IMG from "@/assets/bot.png";
+import CHATTING_LAYOUT from "@/assets/chatLayout.svg";
+import { useRef, useEffect, useState } from "react";
+import useSpeechToText from "@/hooks/useSpeechToText";
+import { useNavigate, useParams } from "react-router-dom";
+import { Client } from "@stomp/stompjs";
+import SockJS from "sockjs-client";
 
-const ChatPage = () => {
-  const [messages, setMessages] = useState([]);
-  const [currentRoomId, setCurrentRoomId] = useState(null);
-  const [inputMessage, setInputMessage] = useState("");
-  const chatBoxRef = useRef(null);
-  const stompClient = useRef(null);
+export const ChatPage = () => {
+  const customInput = useRef();
+  const recommendZone = useRef();
+  const { transcript, toggleListening } = useSpeechToText();
+  const [messages, setMessages] = useState([]); // 메시지 배열
+  const socketRef = useRef();
+  const params = useParams();
+  const navigate = useNavigate();
+
+  const handleResizeHeight = () => {
+    if (customInput.current && recommendZone.current) {
+      customInput.current.style.height = "auto";
+      customInput.current.style.height = `${customInput.current.scrollHeight}px`;
+
+      const bottomOffset = 30 + customInput.current.scrollHeight;
+      recommendZone.current.style.bottom = `${bottomOffset}px`;
+    }
+  };
 
   useEffect(() => {
-    const socket = new SockJS("https://api.golang-ktb.site/chat/ws");
-    stompClient.current = Stomp.over(socket);
+    customInput.current.value = transcript;
+    handleResizeHeight();
+  }, [transcript]);
 
-    stompClient.current.connect({}, () => {
-      console.log("Connected to WebSocket");
-    });
+  useEffect(() => {
+    const username = localStorage.getItem("username");
+    localStorage.setItem("chatroomUUID", params.room);
+    if (!username) {
+      localStorage.setItem("nextpage", "/chatting/info/another");
+      navigate("/");
+    } else {
+      // WebSocket 및 STOMP 클라이언트 설정
+      const sock = new SockJS(`https://api.golang-ktb.site/chat/ws`);
+      const stompClient = new Client({
+        webSocketFactory: () => sock,
+        debug: function (str) {
+          console.log(str);
+        },
+        reconnectDelay: 5000,
+        heartbeatIncoming: 4000,
+        heartbeatOutgoing: 4000,
+      });
 
-    return () => {
-      if (stompClient.current) {
-        stompClient.current.disconnect();
-      }
-    };
-  }, []);
+      stompClient.onConnect = () => {
+        stompClient.subscribe(`/sub/chatrooms/${params.room}`, (message) => {
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            JSON.parse(message.body),
+          ]);
+        });
+      };
 
-  const subscribeToRoom = (roomId) => {
-    if (currentRoomId === roomId) {
-      alert("Already subscribed to this room.");
-      return;
+      stompClient.onDisconnect = () => {
+        console.log("Disconnected");
+      };
+
+      stompClient.activate();
+
+      socketRef.current = stompClient;
+
+      return () => {
+        stompClient.deactivate();
+      };
     }
+  }, [navigate, params.room]);
 
-    if (currentRoomId !== null) {
-      stompClient.current.unsubscribe(`/sub/chatrooms/${currentRoomId}`);
-      console.log(`Unsubscribed from room: ${currentRoomId}`);
-    }
-
-    setCurrentRoomId(roomId);
-
-    stompClient.current.subscribe(`/sub/chatrooms/${roomId}`, (message) => {
-      const chatMessage = JSON.parse(message.body);
+  const handleSendMessage = () => {
+    const message = customInput.current.value;
+    if (message.trim()) {
+      const newMessage = {
+        chatroomUUID: localStorage.getItem("chatroomUUID"),
+        username: localStorage.getItem("username"),
+        message: message,
+      };
       setMessages((prevMessages) => [
         ...prevMessages,
-        `${chatMessage.username} (${chatMessage.nickname}): ${chatMessage.message}`,
+        { ...newMessage, isMine: true },
       ]);
-    });
 
-    console.log(`Subscribed to room: ${roomId}`);
-  };
+      if (socketRef.current && socketRef.current.connected) {
+        socketRef.current.publish({
+          destination: "/pub/messages",
+          body: JSON.stringify(newMessage),
+        });
+      }
 
-  const sendMessage = () => {
-    if (inputMessage.trim() === "" || currentRoomId === null) {
-      alert("Please enter a message and subscribe to a room first.");
-      return;
+      customInput.current.value = "";
+      handleResizeHeight();
     }
-
-    const chatMessage = {
-      chatroomUUID: currentRoomId,
-      username: "UserA",
-      message: inputMessage,
-    };
-
-    stompClient.current.send("/pub/messages", {}, JSON.stringify(chatMessage));
-    setInputMessage(""); // Clear the input field
   };
-
-  useEffect(() => {
-    if (chatBoxRef.current) {
-      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
-    }
-  }, [messages]);
 
   return (
-    <div>
+    <div
+      style={{
+        backgroundImage: `url(${CHATTING_LAYOUT})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        width: "100%",
+      }}
+    >
       <S.ChatLayout>
         <Header color="black">
           <p>2인 채팅</p>
           <EndButton>끝내기</EndButton>
         </Header>
-        <div className="max-w-lg mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
-          <div className="mb-4">
-            <input
-              type="text"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter chat room ID"
-              onKeyDown={(e) =>
-                e.key === "Enter" && subscribeToRoom(e.target.value)
-              }
-            />
-          </div>
-          <div
-            ref={chatBoxRef}
-            className="h-96 overflow-y-auto mb-4 p-4 bg-gray-100 rounded-lg"
-          >
-            {messages.length === 0 ? (
-              <h5 className="text-center text-gray-400">
-                Messages will appear here...
-              </h5>
+        <S.ChattingZone>
+          {messages.map((message, index) =>
+            message.isMine ? (
+              <S.SendZone key={index}>{message.message}</S.SendZone>
             ) : (
-              messages.map((msg, idx) => <p key={idx}>{msg}</p>)
-            )}
-          </div>
-          <div className="flex">
-            <input
-              type="text"
-              className="flex-1 px-4 py-2 border rounded-l-lg focus:outline-none focus:ring-2 focus:ring-green-500"
-              placeholder="Enter your message"
-              value={inputMessage}
-              onChange={(e) => setInputMessage(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && sendMessage()}
-            />
-            <button
-              className="bg-green-500 text-white font-bold py-2 px-4 rounded-r-lg hover:bg-green-600 transition duration-200"
-              onClick={sendMessage}
-            >
-              Send
-            </button>
-          </div>
-        </div>
+              <S.ResBox key={index}>
+                <S.ResZone>{message.message}</S.ResZone>
+                <S.ResImage
+                  style={{
+                    backgroundImage: `url(${BOT_IMG})`,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                  }}
+                ></S.ResImage>
+              </S.ResBox>
+            )
+          )}
+        </S.ChattingZone>
+        <S.InputContainer>
+          <S.StyledInput
+            rows={1}
+            ref={customInput}
+            onChange={() => {}}
+            onInput={handleResizeHeight}
+            maxLength={500}
+          />
+          <S.MicrophoneIcon onClick={toggleListening} />
+          <S.SendIcon onClick={handleSendMessage} />
+        </S.InputContainer>
       </S.ChatLayout>
     </div>
   );
 };
-
-export default ChatPage;
