@@ -16,6 +16,8 @@ export const BotInfo = () => {
     if (file) {
       await postPdf(file);
       navigate("relation");
+    } else {
+      navigate("relation");
     }
   };
 
