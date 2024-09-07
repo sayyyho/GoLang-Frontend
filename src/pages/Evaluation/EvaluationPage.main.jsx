@@ -10,23 +10,23 @@ export const EvaluationPage = () => {
 
     const mockData = [
         {
-            person: 'A',
-            date: '2024.08.09',
-            pieData: { 'A': 10, 'B': 9, 'C': 8, 'D': 7 },
+            person: '홍창기',
+            date: '2024.09.07',
+            pieData: { '응': 10, '그래': 9, '가보자고': 8, '싫어': 7 ,'먹자': 4},
             score: { positive: 50, neutral: 20, negative: 30 },
             result: { message: "이번 채팅은 누가 고집이 더 셌어요 그만 좀 부리세요." }
         },
         {
-            person: 'B',
-            date: '2024.08.20',
-            pieData: { 'A': 7, 'B': 10, 'C': 6, 'D': 9 },
+            person: '문보경',
+            date: '2024.09.07',
+            pieData: { '좋다': 7, '사랑해': 10, '잘자': 6, '안녕': 9, '할것이다': 8 },
             score: { positive: 60, neutral: 25, negative: 15 },
             result: { message: "긍정적인 대화가 많았습니다!" }
         },
         {
-            person: 'C',
-            date: '2024.08.23',
-            pieData: { 'A': 9, 'B': 8, 'C': 7, 'D': 6 },
+            person: '김현수',
+            date: '2024.09.07',
+            pieData: { '꺼져': 9, '새끼': 8, '싫어': 7, '그만해': 6 ,'개':2},
             score: { positive: 40, neutral: 30, negative: 30 },
             result: { message: "대화가 약간 부정적이었습니다." }
         }
