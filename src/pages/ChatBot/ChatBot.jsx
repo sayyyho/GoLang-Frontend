@@ -8,6 +8,18 @@ import useSpeechToText from "@/hooks/useSpeechToText";
 import { useNavigate, useParams } from "react-router-dom";
 import SockJS from "sockjs-client";
 
+// Mock data for filtered employee messages
+const filteredEmployeeMessages = [
+  "안녕하세요, 팀장님. 프로젝트는 거의 마무리 단계에 와 있습니다. 다만, 클라이언트 측에서 추가 기능 요청이 있어, 약간의 추가 작업이 필요할 것 같습니다. 팀 내에서 해결 방안을 논의 중이며, 구체적인 계획을 곧 세워 보고드리겠습니다.",
+  "안녕하세요, 팀장님! 프로젝트 진행 상황을 보고드리려고 합니다. 현재 전체 작업의 70%가 완료되었고, 나머지도 예정된 기한 내에 마무리될 수 있을 것 같습니다.",
+  "팀장님, 프로젝트는 거의 마무리 단계에 있습니다. 클라이언트 요청으로 인해 몇 가지 추가 작업이 발생할 수 있어 이에 대해 보고드리고자 합니다.",
+];
+
+const managerResponses = [
+  "수고 많았어요. 진행 상황이 순조롭게 진행되고 있다니 다행이네요. 클라이언트 요청 사항이 변경된 부분에 대해서는 어떤 추가 작업이 필요한지 구체적으로 알려줄 수 있을까요? 추가 시간이 필요한 부분이 있으면 미리 알려줘야 하니, 전체 일정을 다시 한번 검토해보고 제안 부탁드립니다. 또한, 다른 팀 간 협업에 어려움은 없었나요? 꼭 피드백 주세요.",
+  "좋아요. 클라이언트 요청 사항을 정리한 후 다시 한 번 회의 일정을 잡아보죠. 필요한 부분이 있다면 적극적으로 논의하고 해결해 나가면 될 것 같습니다. 이번 프로젝트가 중요한 만큼, 계속해서 꼼꼼히 체크 부탁드리고, 문제가 생기면 즉시 보고해 주세요. 고생 많았습니다.",
+];
+
 export const ChatBot = () => {
   const customInput = useRef();
   const recommendZone = useRef();
@@ -16,6 +28,8 @@ export const ChatBot = () => {
   const socketRef = useRef();
   const params = useParams();
   const navigate = useNavigate();
+  const [responseIndex, setResponseIndex] = useState(0); // 응답 인덱스 관리
+  const [filteredIndex, setFilteredIndex] = useState(0); // 순화된 메시지 인덱스 관리
 
   const handleResizeHeight = () => {
     if (customInput.current && recommendZone.current) {
@@ -33,50 +47,33 @@ export const ChatBot = () => {
     handleResizeHeight();
   }, [transcript]);
 
-  useEffect(() => {
-    const username = localStorage.getItem("username");
-    localStorage.setItem("chatroomUUID", params.room);
-    if (!username) {
-      localStorage.setItem("nextpage", "/chatting/info/another");
-      navigate("/");
-    } else {
-      // SockJS 연결 설정
-      const sock = new SockJS(`${import.meta.env.VITE_BASE_API}/chat/sockjs`);
-
-      sock.onopen = () => {
-        console.log("SockJS connected");
-        sock.send(JSON.stringify({ type: "join", room: params.room }));
-      };
-
-      sock.onmessage = (event) => {
-        const message = JSON.parse(event.data);
-        setMessages((prevMessages) => [...prevMessages, message]);
-      };
-
-      sock.onclose = () => {
-        console.log("SockJS disconnected");
-      };
-
-      socketRef.current = sock;
-
-      return () => {
-        sock.close();
-      };
-    }
-  }, [navigate, params.room]);
-
   const handleSendMessage = () => {
     const message = customInput.current.value;
     if (message.trim()) {
       const newMessage = { text: message, isMine: true };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
 
-      if (socketRef.current.readyState === SockJS.OPEN) {
-        socketRef.current.send(JSON.stringify(newMessage));
+      // 목데이터에서 응답 추가
+      if (responseIndex < managerResponses.length) {
+        const botResponse = {
+          text: managerResponses[responseIndex],
+          isMine: false,
+        };
+        setTimeout(() => {
+          setMessages((prevMessages) => [...prevMessages, botResponse]);
+          setResponseIndex(responseIndex + 1); // 다음 응답으로 인덱스 증가
+        }, 1000);
       }
 
       customInput.current.value = "";
       handleResizeHeight();
+    }
+  };
+
+  const handlePolishMessage = () => {
+    if (filteredIndex < filteredEmployeeMessages.length) {
+      customInput.current.value = filteredEmployeeMessages[filteredIndex];
+      setFilteredIndex(filteredIndex + 1); // 다음 순화된 메시지로 인덱스 증가
     }
   };
 
@@ -112,11 +109,12 @@ export const ChatBot = () => {
             )
           )}
         </S.ChattingZone>
-        <S.RecommendTextContainer ref={recommendZone}>
-          {/* <S.RecommendText>추천1</S.RecommendText>
-        <S.RecommendText>추천2</S.RecommendText> */}
-        </S.RecommendTextContainer>
       </S.ChatLayout>
+      <S.BtnContainer>
+        <S.OptionButton onClick={handlePolishMessage}>순화하기</S.OptionButton>
+        <S.OptionButton>정리하기</S.OptionButton>
+      </S.BtnContainer>
+
       <S.InputContainer>
         <S.StyledInput
           rows={1}

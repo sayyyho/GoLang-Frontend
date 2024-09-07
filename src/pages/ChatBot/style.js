@@ -101,6 +101,7 @@ export const BtnContainer = styled.div`
   align-items: center;
   position: sticky;
   bottom: 90px;
+  margin: 0 auto;
 `;
 
 export const OptionButton = styled.button`
