@@ -54,7 +54,7 @@ export const BotRelation = () => {
       }}
     >
       <Header color="black" isBack={true}>
-        2인 채팅
+        고랭과 채팅
       </Header>
 
       <img src={REL_GOLANG} />
