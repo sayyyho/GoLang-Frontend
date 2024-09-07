@@ -87,7 +87,7 @@ export const ChatBot = () => {
           <EndButton>끝내기</EndButton>
         </Header>
         <S.ChattingZone>
-          <S.ResBox key={index}>
+          <S.ResBox>
             <S.ResZone>
               반갑습니다 ☺️{localStorage.getItem("relation")}모드입니다.
             </S.ResZone>
