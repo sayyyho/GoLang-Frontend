@@ -40,7 +40,7 @@ export const ChatPage = () => {
       navigate("/");
     } else {
       // WebSocket 연결 설정
-      const socket = new WebSocket(`wss://api.golang-ktb.site/chat/ws`);
+      const socket = new WebSocket(`https://api.golang-ktb.site/chat/ws`);
 
       socket.onopen = () => {
         console.log("WebSocket connected");
