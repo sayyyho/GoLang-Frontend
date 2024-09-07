@@ -7,7 +7,7 @@ import { RELATION_TEXT } from "@/constant/chatSetting";
 import { postPdf } from "@/api/postPdf";
 import { useNavigate } from "react-router-dom";
 
-export const ChatInfo = () => {
+export const BotInfo = () => {
   const fileInputRef = useRef();
   const [isUpload, setIsUpload] = useState(false);
   const [file, setFile] = useState(null);
@@ -15,8 +15,6 @@ export const ChatInfo = () => {
   const handleSubmit = async () => {
     if (file) {
       await postPdf(file);
-      navigate("relation");
-    } else {
       navigate("relation");
     }
   };
@@ -44,7 +42,7 @@ export const ChatInfo = () => {
       }}
     >
       <Header color="black" isBack={true}>
-        2인 채팅
+        고랭과 채팅
       </Header>
       <S.SettingZone>
         <img src={REL_GOLANG} />

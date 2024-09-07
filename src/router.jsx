@@ -14,6 +14,9 @@ import { ChatInfo } from "./pages/ChatSetting/ChatInfo";
 import { ChatRelation } from "./pages/ChatSetting/ChatRelation";
 import { Share } from "./pages/SharePage/Share";
 import { ChatAnother } from "./pages/ChatSetting/ChatAnother";
+import { ChatBot } from "./pages/ChatBot/ChatBot";
+import { BotInfo } from "./pages/BotSetting/BotInfo";
+import { BotRelation } from "./pages/BotSetting/BotRelation";
 
 // ProtectedRoute 컴포넌트 정의
 const ProtectedRoute = ({ element }) => {
@@ -57,12 +60,24 @@ const router = createBrowserRouter([
         element: <ChatPage />,
       },
       {
+        path: "chatting/bot/:room",
+        element: <ChatBot />,
+      },
+      {
         path: "chatting/info",
         element: <ProtectedRoute element={<ChatInfo />} />,
       },
       {
+        path: "chatting/info/bot",
+        element: <ProtectedRoute element={<BotInfo />} />,
+      },
+      {
         path: "chatting/info/relation",
         element: <ProtectedRoute element={<ChatRelation />} />,
+      },
+      {
+        path: "chatting/info/bot/relation",
+        element: <ProtectedRoute element={<BotRelation />} />,
       },
       {
         path: "chatting/info/another",

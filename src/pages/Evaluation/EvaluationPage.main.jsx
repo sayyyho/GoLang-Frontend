@@ -6,38 +6,45 @@ import { DoughnutChartComponent } from "./DoughnutChart.jsx";
 import { ProgressBar } from "./BarChart.jsx";
 
 export const EvaluationPage = () => {
+
     const location = useLocation();
     const navigate = useNavigate();
     const handleNavigate = (path) => {
         navigate(path);
     };
 
-    const mockData = [
-        {
-            person: '홍창기',
-            date: '2024.09.07',
-            pieData: { '응': 10, '그래': 9, '가보자고': 8, '싫어': 7 ,'먹자': 4},
-            score: { positive: 50, neutral: 20, negative: 30 },
-            result: { message: "이번 채팅은 누가 고집이 더 셌어요 그만 좀 부리세요." }
-        },
-        {
-            person: '문보경',
-            date: '2024.09.07',
-            pieData: { '좋다': 7, '사랑해': 10, '잘자': 6, '안녕': 9, '할것이다': 8 },
-            score: { positive: 60, neutral: 25, negative: 15 },
-            result: { message: "긍정적인 대화가 많았습니다!" }
-        },
-        {
-            person: '김현수',
-            date: '2024.09.07',
-            pieData: { '꺼져': 9, '새끼': 8, '싫어': 7, '그만해': 6 ,'개':2},
-            score: { positive: 40, neutral: 30, negative: 30 },
-            result: { message: "대화가 약간 부정적이었습니다." }
-        }
-    ];
 
-    const { person = "익명" } = location.state || {};
-    const selectedData = mockData.find((data) => data.person === person) || {};
+
+
+  const mockData = [
+    {
+      person: "홍창기",
+      date: "2024.09.07",
+      pieData: { 응: 10, 그래: 9, 가보자고: 8, 싫어: 7, 먹자: 4 },
+      score: { positive: 50, neutral: 20, negative: 30 },
+      result: {
+        message: "이번 채팅은 누가 고집이 더 셌어요 그만 좀 부리세요.",
+      },
+    },
+    {
+      person: "문보경",
+      date: "2024.09.07",
+      pieData: { 좋다: 7, 사랑해: 10, 잘자: 6, 안녕: 9, 할것이다: 8 },
+      score: { positive: 60, neutral: 25, negative: 15 },
+      result: { message: "긍정적인 대화가 많았습니다!" },
+    },
+    {
+      person: "김현수",
+      date: "2024.09.07",
+      pieData: { 꺼져: 9, 새끼: 8, 싫어: 7, 그만해: 6, 개: 2 },
+      score: { positive: 40, neutral: 30, negative: 30 },
+      result: { message: "대화가 약간 부정적이었습니다." },
+    },
+  ];
+
+  const { person = "익명" } = location.state || {};
+  const selectedData = mockData.find((data) => data.person === person) || {};
+
 
     const { pieData = {}, score = { positive: 0, neutral: 0, negative: 0 }, result = { message: "" }, date = "알 수 없음" } = selectedData;
    console.log('전달할',mockData);
@@ -72,4 +79,5 @@ export const EvaluationPage = () => {
             </style.Wrapper>
         </style.Frame>
     );
+
 };
