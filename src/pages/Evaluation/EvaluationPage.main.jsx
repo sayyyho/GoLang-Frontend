@@ -36,7 +36,7 @@ export const EvaluationPage = () => {
     const selectedData = mockData.find((data) => data.person === person) || {};
 
     const { pieData = {}, score = { positive: 0, neutral: 0, negative: 0 }, result = { message: "" }, date = "알 수 없음" } = selectedData;
-   console.log('전달할',pieData);
+   console.log('전달할',mockData);
     return (
         <style.Frame>
             <style.Wrapper>
@@ -51,9 +51,10 @@ export const EvaluationPage = () => {
 
 
                         <DoughnutChartComponent pieData={pieData}/>
+                    <style.SecondWrapper>
+                        <ProgressBar positive={score.positive} neutral={score.neutral} negative={score.negative} />
+                    </style.SecondWrapper>
 
-
-                    <ProgressBar positive={score.positive} neutral={score.neutral} negative={score.negative} />
 
                     <style.ThirdWrapper>
                         {result.message}
