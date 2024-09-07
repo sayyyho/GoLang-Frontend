@@ -25,34 +25,10 @@ export const Wrapper = styled.div`
   border-radius: 30px;
 `;
 
-export const FirstWrapper = styled.div`
-  width: 100%;
-  height: 30%;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-export const TitleWrapper = styled.div`
-  width: 85%;
-  height: 15%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 20px;
-`;
-export const Title = styled.h4``;
-export const EvaluationWrapper = styled.div`
-  width: 90%;
-  height: 70%;
-  border-radius: 30px;
-  background-color: white;
-`;
 
 export const SecondWrapper = styled.div`
 width: 90%;
-    height: 53%;
+    height: 90%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;

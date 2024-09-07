@@ -31,20 +31,28 @@ export const Wrapper = styled.div`
     
 `;
 export const HomeButton = styled.button`
-    width: 25%;
+
+    width: 100px;
     height: 50%;
     border-radius: 30px;
-    background-color:#154DBA;
+    background: rgba(21, 77, 186, 0.53);
+    filter: blur(0.5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "EF_jejudoldam", sans-serif;
     color: white;
-    
+
 `;
 export const ScrollWrapper = styled.div`
     width: 100%;
+    height: 812px;
     overflow-y: scroll;
 `;
 
 export const ContentWrapper = styled.div`
 width: 100%;
+    height: 800px;
     display: flex;
     flex-direction:column;
     align-items: center;
@@ -107,12 +115,7 @@ export const SecondWrapper = styled.div`
 
     
 `;
-export const TitleWrapper = styled.div`
-display: flex;
-    flex-direction: column;
-align-items: center;
-justify-content: center;
-`;
+
 
 export const SecondTitle = styled.h2`
     
@@ -121,15 +124,17 @@ export const BarContainer = styled.div`
 width: 100%;
     height: 20%;
     margin-top: 20px;
-    background-color: white;
+    border-radius: 30px;
+    overflow: hidden;
     
 `;
 
 export const Bar = styled.div`
+width: 100%;
     height: 100%;
-    width: 100%;
     border-radius: 50px;
     display: flex;
+    border-radius: 30px;
 
 
 `;
