@@ -137,18 +137,18 @@ export const ChatPage = () => {
             )
           )}
         </S.ChattingZone>
-        <S.InputContainer>
-          <S.StyledInput
-            rows={1}
-            ref={customInput}
-            onChange={() => {}}
-            onInput={handleResizeHeight}
-            maxLength={500}
-          />
-          <S.MicrophoneIcon onClick={toggleListening} />
-          <S.SendIcon onClick={handleSendMessage} />
-        </S.InputContainer>
       </S.ChatLayout>
+      <S.InputContainer>
+        <S.StyledInput
+          rows={1}
+          ref={customInput}
+          onChange={() => {}}
+          onInput={handleResizeHeight}
+          maxLength={500}
+        />
+        <S.MicrophoneIcon onClick={toggleListening} />
+        <S.SendIcon onClick={handleSendMessage} />
+      </S.InputContainer>
     </div>
   );
 };
